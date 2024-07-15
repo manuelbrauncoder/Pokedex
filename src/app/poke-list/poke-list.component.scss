@@ -1,0 +1,16 @@
+.pokeList{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.pokeCard{
+    border: 2px solid red;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition-duration: 100ms;
+    &:hover{
+        scale: 1.1;
+    }
+}
