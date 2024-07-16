@@ -1,4 +1,3 @@
-<h1>Pokedex</h1>
 
 <div class="pokeList">
     @for (pokeDetail of apiService.pokeDetails; track pokeDetail.name; let index = $index;) {
@@ -9,7 +8,7 @@
         </div>
 
         @if (detailboxShown) {
-            <app-poke-details></app-poke-details>
+            <app-poke-details (showDetailView)="changeDetailViewState($event)"></app-poke-details>
         }
     }
 </div>

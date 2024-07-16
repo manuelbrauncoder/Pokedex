@@ -1,8 +1,11 @@
 
 
-<div class="detailBox">
-    <p>poke-details works!</p>
+<main class="detailBox">
     <p>{{apiService.pokeDetails[apiService.selectedIndexForDetails].name}}</p>
     <img src="{{apiService.pokeDetails[apiService.selectedIndexForDetails].sprites.front_default}}" alt="">
-</div>
+</main>
+
+<div (click)="toggleDetailView()" class="background"></div>
+
+
 

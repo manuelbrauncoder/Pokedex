@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ApiService } from "../services/api.service";
 
 @Component({
@@ -10,4 +10,9 @@ import { ApiService } from "../services/api.service";
 })
 export class PokeDetailsComponent {
   public apiService = inject(ApiService);
+  @Output() showDetailView = new EventEmitter<boolean>();
+
+  toggleDetailView() {
+    this.showDetailView.emit(false);
+  } 
 }

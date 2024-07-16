@@ -16,6 +16,10 @@ export class PokeListComponent implements OnInit {
 
   detailboxShown: boolean = false;
 
+  changeDetailViewState(state: boolean){
+    this.detailboxShown = state;
+  }
+
   showDetailBox(index: number) {
     this.detailboxShown = !this.detailboxShown;
     this.apiService.selectedIndexForDetails = index;
