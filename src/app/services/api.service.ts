@@ -16,6 +16,7 @@ export class ApiService {
   numberToFetch: number = 25;
   offset: number = 0;
   selectedIndexForDetails: number = 0;
+  searchedPokemon: PokemonDetails[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -122,5 +123,15 @@ export class ApiService {
         front_default: img,
       },
     };
+  }
+
+  searchPokemon(input: string){
+    this.searchedPokemon = [];
+    let filteredPokemon = this.pokeDetails.filter( pokemon => this.search(pokemon.name.toLowerCase(), input));
+    this.searchedPokemon = filteredPokemon;
+  }
+
+  search(name: string, input: string){
+    return name.includes(input);
   }
 }
