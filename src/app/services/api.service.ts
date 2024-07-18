@@ -26,10 +26,10 @@ export class ApiService {
    * numberToFetch: End for the loop
    */
   async loadMorePokemon() {
+    this.searchedPokemon = [];
     this.numberToFetch += 25;
     this.offset += 25;    
     await this.loadPokeDetails();
-    console.log(this.pokeDetails);
   }
 
   /**
