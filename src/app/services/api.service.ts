@@ -134,4 +134,16 @@ export class ApiService {
   search(name: string, input: string){
     return name.includes(input);
   }
+
+  arrToShown() {
+    if (this.searchedPokemon.length > 0) {
+      return this.searchedPokemon[
+        this.selectedIndexForDetails
+      ];
+    } else {
+      return this.pokeDetails[
+        this.selectedIndexForDetails
+      ];
+    }
+  }
 }

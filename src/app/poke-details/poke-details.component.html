@@ -1,20 +1,8 @@
 
 
 <main class="detailBox">
-    <p>
-        @if (apiService.searchedPokemon.length > 0) {
-            {{ apiService.searchedPokemon[apiService.selectedIndexForDetails].name }}
-        } @else {
-            {{apiService.pokeDetails[apiService.selectedIndexForDetails].name }}
-        }
-        
-    </p>
-    @if (apiService.searchedPokemon.length > 0) {
-        <img src="{{ apiService.searchedPokemon[apiService.selectedIndexForDetails].sprites.front_default }}" alt="">
-    } @else {
-        <img src="{{apiService.pokeDetails[apiService.selectedIndexForDetails].sprites.front_default }}" alt="">
-    }
-    
+    <p> {{ apiService.arrToShown().name }}</p>
+    <img src="{{ apiService.arrToShown().sprites.front_default}}" alt="">
 </main>
 
 <div (click)="toggleDetailView()" class="background"></div>

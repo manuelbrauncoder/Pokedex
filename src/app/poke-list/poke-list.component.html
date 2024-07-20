@@ -1,8 +1,7 @@
 
 <div class="pokeList">
 
-    @if (apiService.searchedPokemon.length > 0) {
-        @for (pokeDetail of apiService.searchedPokemon; track pokeDetail.name; let index = $index;) {
+        @for (pokeDetail of apiService.searchedPokemon.length > 0 ? apiService.searchedPokemon : apiService.pokeDetails; track pokeDetail.name; let index = $index;) {
             <div (click)="showDetailBox(index)" class="pokeCard">
                 <h2>{{ pokeDetail.name }}</h2>
                 <img src="{{ pokeDetail.sprites.front_default }}" alt="">
@@ -13,19 +12,6 @@
                 <app-poke-details (showDetailView)="changeDetailViewState($event)"></app-poke-details>
             }
         }
-    } @else {
-        @for (pokeDetail of apiService.pokeDetails; track pokeDetail.name; let index = $index;) {
-            <div (click)="showDetailBox(index)" class="pokeCard">
-                <h2>{{ pokeDetail.name }}</h2>
-                <img src="{{ pokeDetail.sprites.front_default }}" alt="">
-                <p>{{ index }}</p>
-            </div>
-    
-            @if (detailboxShown) {
-                <app-poke-details (showDetailView)="changeDetailViewState($event)"></app-poke-details>
-            }
-        }
-    }
     
 </div>
 

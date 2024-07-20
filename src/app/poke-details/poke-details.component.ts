@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { ApiService } from "../services/api.service";
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-poke-details',
@@ -14,5 +14,7 @@ export class PokeDetailsComponent {
 
   toggleDetailView() {
     this.showDetailView.emit(false);
-  } 
+  }
+
+  
 }
