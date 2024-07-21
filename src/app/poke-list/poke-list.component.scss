@@ -1,7 +1,8 @@
+@import '../../styles.scss';
+
 .pokeList{
-    display: flex;
+    @include dFlex($g: 16px);
     flex-wrap: wrap;
-    gap: 16px;
 }
 
 .pokeCard{
@@ -9,8 +10,8 @@
     border-radius: 8px;
     padding: 8px;
     cursor: pointer;
-    transition-duration: 100ms;
-    &:hover{
-        scale: 1.1;
-    }
+}
+
+.headline{
+    @include dFlex($g: 16px);
 }

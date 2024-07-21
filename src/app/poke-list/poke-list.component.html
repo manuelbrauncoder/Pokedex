@@ -2,10 +2,15 @@
 <div class="pokeList">
 
         @for (pokeDetail of apiService.searchedPokemon.length > 0 ? apiService.searchedPokemon : apiService.pokeDetails; track pokeDetail.name; let index = $index;) {
-            <div (click)="showDetailBox(index)" class="pokeCard">
-                <h2>{{ pokeDetail.name }}</h2>
+            <div [ngStyle]="{'background-color': apiService.getBgColor(pokeDetail)}" (click)="showDetailBox(index)" class="pokeCard">
+                <div class="headline">
+                    <h2>{{ pokeDetail.name }}</h2>
+                    <span>{{ pokeDetail.id }}</span>
+                </div>
                 <img src="{{ pokeDetail.sprites.front_default }}" alt="">
-                <p>{{ index }}</p>
+                @for (pokeType of pokeDetail.types; track $index) {
+                    <span>{{ pokeType.type.name }}</span>
+                }
             </div>
     
             @if (detailboxShown) {

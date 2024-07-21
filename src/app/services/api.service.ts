@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pokemon } from '../interfaces/pokemon';
 import { PokemonDetails } from '../interfaces/pokemon-details';
+import { PokemonTypes } from '../interfaces/pokemon-types';
+import { TypeColor } from '../interfaces/type-color';
+import { Type } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +20,27 @@ export class ApiService {
   offset: number = 0;
   selectedIndexForDetails: number = 0;
   searchedPokemon: PokemonDetails[] = [];
+
+  colors: TypeColor[] = [
+    { name: 'normal', color: '#A8A77A' },
+    { name: 'fire', color: '#EE8130' },
+    { name: 'water', color: '#6390F0' },
+    { name: 'electric', color: '#F7D02C' },
+    { name: 'grass', color: '#7AC74C' },
+    { name: 'ice', color: '#96D9D6' },
+    { name: 'fighting', color: '#C22E28' },
+    { name: 'poison', color: '#A33EA1' },
+    { name: 'ground', color: '#E2BF65' },
+    { name: 'flying', color: '#A98FF3' },
+    { name: 'psychic', color: '#F95587' },
+    { name: 'bug', color: '#A6B91A' },
+    { name: 'rock', color: '#B6A136' },
+    { name: 'ghost', color: '#735797' },
+    { name: 'dragon', color: '#6F35FC' },
+    { name: 'dark', color: '#705746' },
+    { name: 'steel', color: '#B7B7CE' },
+    { name: 'fairy', color: '#D685AD' }
+  ];
 
   constructor(private http: HttpClient) {}
 
@@ -68,10 +92,14 @@ export class ApiService {
       const url = this.pokeList[index].url;
       this.fetchPokeDetails(url).subscribe({
         next: (details) => {
+          console.log(details);
+          
           this.pokeDetails.push(
             this.getPokeDetailObject(
               details.name,
-              details.sprites.front_default
+              details.sprites.front_default,
+              details.id,
+              details.types
             )
           );
           //console.log(this.pokeDetails);
@@ -88,6 +116,14 @@ export class ApiService {
     });
   }
 
+  getPokeTypes(types: PokemonTypes[]){
+    let typesArr;
+    types.forEach(type => {
+      typesArr.push(type);
+    });
+    return typesArr;
+  }
+
   /**
    * 
    * @returns promise with complete poke list (only name and url)
@@ -96,7 +132,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.fetchPokeList().subscribe({
         next: (list) => {
-          this.pokeList = list.results;
+          this.pokeList = list.results;          
           resolve();
         },
         error: (err) => {
@@ -104,7 +140,6 @@ export class ApiService {
           reject(err);
         },
         complete: () => {
-          //console.log('Fetching Pokemon List complete');
         },
       });
     });
@@ -116,12 +151,14 @@ export class ApiService {
    * @param img 
    * @returns a PokemonDetails Object
    */
-  getPokeDetailObject(name: string, img: string): PokemonDetails {
+  getPokeDetailObject(name: string, img: string, id: number, types: PokemonTypes[]): PokemonDetails {
     return {
       name: name,
       sprites: {
         front_default: img,
       },
+      id: id,
+      types: types
     };
   }
 
@@ -146,4 +183,14 @@ export class ApiService {
       ];
     }
   }
+
+  getBgColor(pokemon: PokemonDetails): string {
+    const type = pokemon.types[0].type.name;
+    const colorObj = this.colors.find(c => c.name === type);
+    return colorObj ? colorObj.color : 'green';
+  }
+
+  
 }
+
+// getBgColor methode verstehen!!
