@@ -1,5 +1,9 @@
 @import '../../styles.scss';
 
+main{
+    padding: 96px 16px 16px 16px;
+}
+
 .pokeList{
     @include dFlex($g: 16px);
     flex-wrap: wrap;
@@ -17,15 +21,17 @@
 }
 
 .headline{
-    @include dFlex($g: 16px);
+    @include dFlex($g: 16px, $jc: space-around);
     h2{
         font-size: 24px;
         font-weight: 900;
     }
     span{
-        background-color: lightgray;
+        background-color: rgba(255, 255, 255, 0.3);
         padding: 4px 8px;
         border-radius: 100vw;
+        font-size: 16px;
+        font-weight: 500;
     }
 }
 
@@ -41,7 +47,7 @@
 .types{
     @include dFlex($fd: column, $ai: flex-start, $g: 8px);
     span{
-        background-color: lightgray;
+        background-color: rgba(255, 255, 255, 0.3);
         padding: 4px 8px;
         border-radius: 100vw;
     }

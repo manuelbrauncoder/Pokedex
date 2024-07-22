@@ -194,7 +194,5 @@ export class ApiService {
     return colorObj ? colorObj.color : 'green';
   }
 
-  
 }
 
-// getBgColor methode verstehen!!

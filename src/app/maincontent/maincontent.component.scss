@@ -1,0 +1,21 @@
+@import '../../styles.scss';
+
+section{
+    @include dFlex($fd: column);
+}
+
+button{
+    background-color: rgb(254,206,48);
+    border: 3px solid rgb(49,49,154);
+    border-radius: 100vw;
+    padding: 15px 30px;
+    font-size: 24px;
+    font-weight: 700;
+    color: black;
+    transition-duration: 125ms;
+    &:hover{
+        cursor: pointer;
+        scale: 1.2;
+        transition-duration: 125ms;
+    }
+}

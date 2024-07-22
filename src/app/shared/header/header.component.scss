@@ -1,5 +1,23 @@
-header{
-    min-height: 80px;
-    width: 100%;
-    background-color: lightcyan;
+@import "../../../styles.scss";
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 80px;
+  background-color: #f5f1f1;
+  box-shadow: -10px 0px 5px 2px #b2a9a9;
+  @include dFlex($jc: space-around);
+  img {
+    height: 50px;
+    width: auto;
+  }
+  input{
+    border: unset;
+    background-color: white;
+    font-size: 16px;
+    border-radius: 100vw;
+    padding: 4px 8px;
+  }
 }

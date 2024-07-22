@@ -2,7 +2,7 @@
 
 <main class="detailBox">
     <p> {{ apiService.arrToShown().name }}</p>
-    <img src="{{ apiService.arrToShown().sprites.front_default}}" alt="">
+    <img src="{{ apiService.arrToShown().sprites.other['official-artwork'].front_default }}" alt="">
 </main>
 
 <div (click)="toggleDetailView()" class="background"></div>
