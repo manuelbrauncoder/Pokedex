@@ -1,23 +1,29 @@
-
 <div class="pokeList">
-
-        @for (pokeDetail of apiService.searchedPokemon.length > 0 ? apiService.searchedPokemon : apiService.pokeDetails; track pokeDetail.name; let index = $index;) {
-            <div [ngStyle]="{'background-color': apiService.getBgColor(pokeDetail)}" (click)="showDetailBox(index)" class="pokeCard">
-                <div class="headline">
-                    <h2>{{ pokeDetail.name }}</h2>
-                    <span>{{ pokeDetail.id }}</span>
-                </div>
-                <img src="{{ pokeDetail.sprites.front_default }}" alt="">
-                @for (pokeType of pokeDetail.types; track $index) {
-                    <span>{{ pokeType.type.name }}</span>
-                }
-            </div>
-    
-            @if (detailboxShown) {
-                <app-poke-details (showDetailView)="changeDetailViewState($event)"></app-poke-details>
+  @for (pokeDetail of apiService.searchedPokemon.length > 0 ?
+  apiService.searchedPokemon : apiService.pokeDetails; track pokeDetail.name;
+  let index = $index;) {
+  <div
+    [ngStyle]="{ 'background-color': apiService.getBgColor(pokeDetail) }"
+    (click)="showDetailBox(index)"
+    class="pokeCard"
+  >
+    <div class="headline">
+      <h2>{{ pokeDetail.name | titlecase }}</h2>
+      <span>#{{ pokeDetail.id | zeroPad: 4 }}</span>
+    </div>
+    <div class="details">
+        <div class="types">
+            @for (pokeType of pokeDetail.types; track $index) {
+                <span>{{ pokeType.type.name | titlecase }}</span>
             }
-        }
-    
+        </div>
+        <img src="{{ pokeDetail.sprites.other['official-artwork'].front_default }}" alt="" />
+    </div>
+  </div>
+
+  @if (detailboxShown) {
+  <app-poke-details
+    (showDetailView)="changeDetailViewState($event)"
+  ></app-poke-details>
+  } }
 </div>
-
-

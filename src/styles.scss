@@ -1,3 +1,7 @@
+body{
+    font-family: 'Nunito';
+}
+
 @mixin dFlex($fd: row, $jc: center, $ai: center, $g: 0){
     display: flex;
     flex-direction: $fd;

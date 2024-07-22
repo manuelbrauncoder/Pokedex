@@ -6,12 +6,43 @@
 }
 
 .pokeCard{
-    border: 2px solid red;
-    border-radius: 8px;
+    width: 280px;
+    border-radius: 16px;
     padding: 8px;
     cursor: pointer;
+    &:hover img{
+        scale: 1.3;
+        transition-duration: 125ms;
+    } 
 }
 
 .headline{
     @include dFlex($g: 16px);
+    h2{
+        font-size: 24px;
+        font-weight: 900;
+    }
+    span{
+        background-color: lightgray;
+        padding: 4px 8px;
+        border-radius: 100vw;
+    }
+}
+
+.details{
+    @include dFlex($jc: space-around);
+    img{
+        width: 130px;
+        height: auto;
+        transition-duration: 125ms;
+    }
+}
+
+.types{
+    @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+    span{
+        background-color: lightgray;
+        padding: 4px 8px;
+        border-radius: 100vw;
+    }
 }

@@ -97,7 +97,7 @@ export class ApiService {
           this.pokeDetails.push(
             this.getPokeDetailObject(
               details.name,
-              details.sprites.front_default,
+              details.sprites.other['official-artwork'].front_default,
               details.id,
               details.types
             )
@@ -155,7 +155,11 @@ export class ApiService {
     return {
       name: name,
       sprites: {
-        front_default: img,
+        other:{
+          'official-artwork': {
+            front_default: img
+          }
+        }
       },
       id: id,
       types: types
@@ -186,7 +190,7 @@ export class ApiService {
 
   getBgColor(pokemon: PokemonDetails): string {
     const type = pokemon.types[0].type.name;
-    const colorObj = this.colors.find(c => c.name === type);
+    const colorObj = this.colors.find(color => color.name === type);
     return colorObj ? colorObj.color : 'green';
   }
 

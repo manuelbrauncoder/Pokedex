@@ -3,11 +3,12 @@ import { ApiService } from '../services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { PokeDetailsComponent } from '../poke-details/poke-details.component';
+import { ZeroPadPipe } from '../pipes/zero-pad.pipe';
 
 @Component({
   selector: 'app-poke-list',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, PokeDetailsComponent],
+  imports: [HttpClientModule, CommonModule, PokeDetailsComponent, ZeroPadPipe],
   templateUrl: './poke-list.component.html',
   styleUrl: './poke-list.component.scss',
 })
