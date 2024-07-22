@@ -13,7 +13,10 @@ export class HeaderComponent {
   public apiService = inject(ApiService);
   searchInput: string = '';
 
-  search() {
+  /**
+   * method is calling on input
+   */
+  search() {    
     this.apiService.searchPokemon(this.searchInput);
   }
 }

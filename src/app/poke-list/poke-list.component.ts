@@ -28,7 +28,6 @@ export class PokeListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.apiService.getPokeList();
-    await this.apiService.loadPokeDetails();
-    console.log(this.apiService.pokeDetails);
+    await this.apiService.loadPokeDetails(this.apiService.pokeList, this.apiService.pokeDetails);
   }
 }

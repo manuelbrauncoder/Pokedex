@@ -1,7 +1,7 @@
 <main>
   <div class="pokeList">
     @for (pokeDetail of apiService.searchedPokemon.length > 0 ?
-    apiService.searchedPokemon : apiService.pokeDetails; track pokeDetail.name;
+    apiService.searchedPokeDetails : apiService.pokeDetails; track pokeDetail.name;
     let index = $index;) {
     <div
       [ngStyle]="{ 'background-color': apiService.getBgColor(pokeDetail) }"
