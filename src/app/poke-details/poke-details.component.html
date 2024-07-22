@@ -1,11 +1,24 @@
-
-
 <main class="detailBox">
-    <p> {{ apiService.arrToShown().name }}</p>
-    <img src="{{ apiService.arrToShown().sprites.other['official-artwork'].front_default }}" alt="">
+  <div class="headline">
+    <div>
+      <h3>{{ apiService.arrToShown().name | titlecase }}</h3>
+      <span>#{{ apiService.arrToShown().id | zeroPad : 4 }}</span>
+    </div>
+    <span>X</span>
+  </div>
+
+  <div class="imgAndTypes">
+    <img
+      class="pokeImg"
+      src="{{
+        apiService.arrToShown().sprites.other['official-artwork'].front_default
+      }}"
+      alt=""
+    />
+    <div class="types">
+       <!-- render poke types!! -->
+    </div>
+  </div>
 </main>
 
 <div (click)="toggleDetailView()" class="background"></div>
-
-
-

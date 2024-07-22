@@ -2,6 +2,9 @@
 
 main{
     padding: 96px 16px 16px 16px;
+    @media(max-width: 599px){
+        padding: 170px 16px 16px 16px;
+      }
 }
 
 .pokeList{
