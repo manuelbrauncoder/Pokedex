@@ -20,3 +20,11 @@ body {
   align-items: $ai;
   gap: $g;
 }
+
+.spanBubble {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 4px 8px;
+  border-radius: 100vw;
+  font-size: 16px;
+  font-weight: 500;
+}

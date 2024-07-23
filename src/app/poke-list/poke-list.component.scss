@@ -1,6 +1,7 @@
 @import '../../styles.scss';
 
 main{
+    animation-duration: 125ms;
     padding: 96px 16px 16px 16px;
     @media(max-width: 599px){
         padding: 170px 16px 16px 16px;
@@ -30,11 +31,7 @@ main{
         font-weight: 900;
     }
     span{
-        background-color: rgba(255, 255, 255, 0.3);
-        padding: 4px 8px;
-        border-radius: 100vw;
-        font-size: 16px;
-        font-weight: 500;
+        @extend .spanBubble;
     }
 }
 

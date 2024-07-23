@@ -1,4 +1,4 @@
-@import '../../styles.scss';
+@import "../../styles.scss";
 
 main {
   z-index: 3;
@@ -6,11 +6,35 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-height: 700px;
-  max-width: 400px;
+  height: 700px;
+  width: 500px;
+}
+
+.upper {
+  height: 50%;
+  width: 100%;
   padding: 16px;
-  border: 2px solid green;
-  background-color: lightgray;
+}
+
+.lower {
+  height: 50%;
+  width: 100%;
+  background-color: white;
+  border-radius: 32px 32px 0 0;
+  margin-top: -32px;
+  header {
+    @include dFlex($jc: space-evenly);
+    width: 100%;
+    padding-top: 32px;
+    h3 {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 3px;
+      }
+    }
+  }
 }
 
 .background {
@@ -23,18 +47,42 @@ main {
   background-color: rgb(135 136 135 / 7%);
 }
 
-.headline{
+.headline {
   @include dFlex($jc: space-between);
-  >div{
+  .closeBtn {
+    cursor: pointer;
+    animation-duration: 125ms;
+    &:hover{
+      scale: 1.2;
+      animation-duration: 125ms;
+    }
+  }
+  > div {
     @include dFlex($g: 16px);
-    h3{
+    h3 {
       font-size: 32px;
       font-weight: 900;
+    }
+    span{
+      @extend .spanBubble;
+      font-size: 20px;
+      font-weight: 500;
     }
   }
 }
 
-.pokeImg{
+.imgAndTypes {
+  @include dFlex($jc: space-evenly);
+}
+
+.types {
+  @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+  span {
+    @extend .spanBubble;
+  }
+}
+
+.pokeImg {
   width: 250px;
   height: auto;
 }
