@@ -16,7 +16,12 @@ export class HeaderComponent {
   /**
    * method is calling on input
    */
-  search() {    
-    this.apiService.searchPokemon(this.searchInput);
+  search() {   
+    if(this.searchInput.trim() === ''){
+      this.apiService.searchedPokemon = [];
+      this.apiService.searchedPokeDetails = [];
+    } else {
+      this.apiService.searchPokemon(this.searchInput);
+    }
   }
 }

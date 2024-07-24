@@ -1,6 +1,6 @@
 <main>
   <div class="pokeList">
-    @for (pokeDetail of apiService.searchedPokemon.length > 0 ?
+    @for (pokeDetail of apiService.searchedPokeDetails.length > 0 ?
     apiService.searchedPokeDetails : apiService.pokeDetails; track pokeDetail.name;
     let index = $index;) {
     <div

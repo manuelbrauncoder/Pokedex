@@ -16,9 +16,11 @@ export class ApiService {
 
   pokeList: Pokemon[] = []; // list of all pokemon with name and url
   pokeDetails: PokemonDetails[] = []; // loaded pokemon with details
+
   numberToFetch: number = 25; // number of pokemon to load
   offset: number = 0; // offset for the next pokemon
   selectedIndexForDetails: number = 0;
+
   searchedPokemon: Pokemon[] = []; // list of searched pokemon with name and url
   searchedPokeDetails: PokemonDetails[] = []; // pokemon details of searched pokemon
 
@@ -51,10 +53,18 @@ export class ApiService {
    * numberToFetch: End for the loop
    */
   async loadMorePokemon() {
-    this.searchedPokemon = [];
+    this.resetSearch();
     this.numberToFetch += 25;
     this.offset += 25;
     await this.loadPokeDetails(this.pokeList, this.pokeDetails);
+    console.log('no search details:', this.pokeDetails);
+    console.log('details search:', this.searchedPokeDetails);
+    
+  }
+
+  resetSearch(){
+    this.searchedPokemon = [];
+    this.searchedPokeDetails = [];
   }
 
   /**
@@ -78,7 +88,13 @@ export class ApiService {
    * load poke details from offset to numberToFetch
    */
   async loadPokeDetails(listArr: Pokemon[], detailArr: PokemonDetails[]) {
-    for (let i = this.offset; i < this.numberToFetch; i++) {
+    for (let i = this.offset; i < this.numberToFetch; i++) { 
+      await this.getPokeDetails(i, listArr, detailArr);
+    }
+  }
+
+  async loadSearchDetails(listArr: Pokemon[], detailArr: PokemonDetails[]) {
+    for (let i = this.offset; i < listArr.length; i++) { 
       await this.getPokeDetails(i, listArr, detailArr);
     }
   }
@@ -97,7 +113,7 @@ export class ApiService {
       const url = listArr[index].url;
       this.fetchPokeDetails(url).subscribe({
         next: (details) => {
-          console.log(details);
+          //console.log(details);
 
           arrToPush.push(
             this.getPokeDetailObject(
@@ -184,11 +200,13 @@ export class ApiService {
   async searchPokemon(input: string) {
     this.searchedPokemon = [];
     this.searchedPokeDetails = [];
+    
     let filteredPokemon = this.pokeList.filter((pokemon) =>
-      this.search(pokemon.name.toLowerCase(), input)
+      this.search(pokemon.name.toLowerCase(), input.toLowerCase())
     );
     this.searchedPokemon = filteredPokemon;
-    await this.loadPokeDetails(this.searchedPokemon, this.searchedPokeDetails);
+    await this.loadSearchDetails(this.searchedPokemon, this.searchedPokeDetails);
+    
   }
 
   /**
