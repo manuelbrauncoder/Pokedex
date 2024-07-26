@@ -32,7 +32,7 @@ export class PokeDetailsComponent implements OnInit {
   }
 
   selectPokeTypes() {
-    let arr = this.apiService.arrToShown();
+    let arr = this.apiService.pokeDetailWithIndex();
     let types = this.apiService.getPokeTypes(arr.types);
     if (types) {
       this.pokeTypes = types;

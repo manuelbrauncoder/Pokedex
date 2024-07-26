@@ -12,16 +12,4 @@ import { ApiService } from '../../services/api.service';
 export class HeaderComponent {
   public apiService = inject(ApiService);
   searchInput: string = '';
-
-  /**
-   * method is calling on input
-   */
-  search() {   
-    if(this.searchInput.trim() === ''){
-      this.apiService.searchedPokemon = [];
-      this.apiService.searchedPokeDetails = [];
-    } else {
-      this.apiService.searchPokemon(this.searchInput);
-    }
-  }
 }

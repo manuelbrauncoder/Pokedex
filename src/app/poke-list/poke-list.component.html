@@ -1,7 +1,6 @@
 <main>
   <div class="pokeList">
-    @for (pokeDetail of apiService.searchedPokeDetails.length > 0 ?
-    apiService.searchedPokeDetails : apiService.pokeDetails; track pokeDetail.name;
+    @for (pokeDetail of apiService.pokemon; track pokeDetail.name;
     let index = $index;) {
     <div
       [ngStyle]="{ 'background-color': apiService.getBgColor(pokeDetail) }"
@@ -26,7 +25,9 @@
     <app-poke-details
       (showDetailView)="changeDetailViewState($event)"
     ></app-poke-details>
-    } }
+    } } @empty {
+      <h1>No Pokemon loaded!</h1>
+    }
   </div>
 </main>
 

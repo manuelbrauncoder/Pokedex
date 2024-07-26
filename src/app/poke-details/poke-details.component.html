@@ -1,26 +1,29 @@
 <main>
-  <div class="upper" [ngStyle]="{ 'background-color': apiService.getBgColor(apiService.arrToShown()) }">
+  <div
+    class="upper"
+    [ngStyle]="{
+      'background-color': apiService.getBgColor(apiService.pokeDetailWithIndex())
+    }"
+  >
     <div class="headline">
       <div>
-        <h3>{{ apiService.arrToShown().name | titlecase }}</h3>
-        <span>#{{ apiService.arrToShown().id | zeroPad : 4 }}</span>
+        <h3>{{ apiService.pokeDetailWithIndex().name | titlecase }}</h3>
+        <span>#{{ apiService.pokeDetailWithIndex().id | zeroPad : 4 }}</span>
       </div>
       <span class="closeBtn" (click)="toggleDetailView()">X</span>
     </div>
-  
+
     <div class="imgAndTypes">
       <div class="types">
-        @for (poke of apiService.searchedPokeDetails.length > 0 ?
-        apiService.searchedPokeDetails[apiService.selectedIndexForDetails].types :
-        apiService.pokeDetails[apiService.selectedIndexForDetails].types; track
-        $index) {
+        @for (poke of apiService.pokeDetailWithIndex().types; track $index) {
         <span>{{ poke.type.name | titlecase }}</span>
         }
       </div>
       <img
         class="pokeImg"
         src="{{
-          apiService.arrToShown().sprites.other['official-artwork'].front_default
+          apiService.pokeDetailWithIndex().sprites.other['official-artwork']
+            .front_default
         }}"
         alt=""
       />
@@ -34,7 +37,6 @@
       <h3>Moves</h3>
     </header>
   </div>
-  
 </main>
 
 <div (click)="toggleDetailView()" class="background"></div>

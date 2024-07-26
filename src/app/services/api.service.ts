@@ -1,28 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pokemon } from '../interfaces/pokemon';
 import { PokemonDetails } from '../interfaces/pokemon-details';
 import { PokemonTypes } from '../interfaces/pokemon-types';
 import { TypeColor } from '../interfaces/type-color';
-import { Type } from '@angular/compiler';
+import { Root } from '../interfaces/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private pokeListUrl =
-    'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0';
 
-  pokeList: Pokemon[] = []; // list of all pokemon with name and url
-  pokeDetails: PokemonDetails[] = []; // loaded pokemon with details
-
-  numberToFetch: number = 25; // number of pokemon to load
-  offset: number = 0; // offset for the next pokemon
+  pokemon: Root[] = [];
   selectedIndexForDetails: number = 0;
-
-  searchedPokemon: Pokemon[] = []; // list of searched pokemon with name and url
-  searchedPokeDetails: PokemonDetails[] = []; // pokemon details of searched pokemon
 
   colors: TypeColor[] = [
     { name: 'normal', color: '#A8A77A' },
@@ -45,97 +35,46 @@ export class ApiService {
     { name: 'fairy', color: '#D685AD' },
   ];
 
+  pokeOffset: number = 1;
+  classicLimit: number = 151;
+  baseUrl: string = `https://pokeapi.co/api/v2/pokemon/`;
+
   constructor(private http: HttpClient) {}
 
-  /**
-   * load more pokemon with details
-   * offset: start for the loop
-   * numberToFetch: End for the loop
-   */
-  async loadMorePokemon() {
-    this.resetSearch();
-    this.numberToFetch += 25;
-    this.offset += 25;
-    await this.loadPokeDetails(this.pokeList, this.pokeDetails);
-    console.log('no search details:', this.pokeDetails);
-    console.log('details search:', this.searchedPokeDetails);
-    
-  }
-
-  resetSearch(){
-    this.searchedPokemon = [];
-    this.searchedPokeDetails = [];
-  }
-
-  /**
-   *
-   * @returns a Observable to subscribe
-   */
-  fetchPokeList(): Observable<{ results: Pokemon[] }> {
-    return this.http.get<{ results: Pokemon[] }>(this.pokeListUrl);
-  }
-
-  /**
-   *
-   * @param url from api for poke details
-   * @returns
-   */
-  fetchPokeDetails(url: string): Observable<PokemonDetails> {
-    return this.http.get<any>(url);
-  }
-
-  /**
-   * load poke details from offset to numberToFetch
-   */
-  async loadPokeDetails(listArr: Pokemon[], detailArr: PokemonDetails[]) {
-    for (let i = this.offset; i < this.numberToFetch; i++) { 
-      await this.getPokeDetails(i, listArr, detailArr);
+  async prepareUrlToFetch() {
+    while (this.pokeOffset <= this.classicLimit) {
+      const url = `${this.baseUrl}${this.pokeOffset}/`;
+      await this.getClassicPokeDetails(url);
+      this.pokeOffset++;
     }
   }
 
-  async loadSearchDetails(listArr: Pokemon[], detailArr: PokemonDetails[]) {
-    for (let i = this.offset; i < listArr.length; i++) { 
-      await this.getPokeDetails(i, listArr, detailArr);
-    }
+  fetchClassicPokemon(url: string): Observable<Root> {
+    return this.http.get<Root>(url);
   }
 
-  /**
-   * load poke details for current index
-   * @param index
-   * @returns promise with poke details
-   */
-  async getPokeDetails(
-    index: number,
-    listArr: Pokemon[],
-    arrToPush: PokemonDetails[]
-  ): Promise<void> {
+  async getClassicPokeDetails(url: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const url = listArr[index].url;
-      this.fetchPokeDetails(url).subscribe({
-        next: (details) => {
-          //console.log(details);
-
-          arrToPush.push(
-            this.getPokeDetailObject(
-              details.name,
-              details.sprites.other['official-artwork'].front_default,
-              details.id,
-              details.types
-            )
-          );
+      this.fetchClassicPokemon(url).subscribe({
+        next: (pokemon) => {
+          this.pokemon.push(pokemon);
           resolve();
         },
         error: (err) => {
-          console.log('Error fetching Pokemon Details', err);
+          console.log('Error fetching Pokemon', err);
           reject(err);
-        }
+        },
       });
     });
   }
 
+  pokeDetailWithIndex(){
+    return this.pokemon[this.selectedIndexForDetails];
+  }
+
   /**
-   * 
-   * @param types 
+   *
+   * @param types
    * @returns array with pokemon types
    */
   getPokeTypes(types: PokemonTypes[]) {
@@ -148,92 +87,7 @@ export class ApiService {
 
   /**
    *
-   * @returns promise with complete poke list (only name and url)
-   */
-  async getPokeList(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.fetchPokeList().subscribe({
-        next: (list) => {
-          this.pokeList = list.results;
-          resolve();
-        },
-        error: (err) => {
-          console.log('Error fetchting List Data', err);
-          reject(err);
-        },
-        complete: () => {},
-      });
-    });
-  }
-
-  /**
-   *
-   * @param name
-   * @param img
-   * @returns a PokemonDetails Object
-   */
-  getPokeDetailObject(
-    name: string,
-    img: string,
-    id: number,
-    types: PokemonTypes[]
-  ): PokemonDetails {
-    return {
-      name: name,
-      sprites: {
-        other: {
-          'official-artwork': {
-            front_default: img,
-          },
-        },
-      },
-      id: id,
-      types: types,
-    };
-  }
-
-  /**
-   * clear the search arrays
-   * load details form searched pokemon
-   * @param input 
-   */
-  async searchPokemon(input: string) {
-    this.searchedPokemon = [];
-    this.searchedPokeDetails = [];
-    
-    let filteredPokemon = this.pokeList.filter((pokemon) =>
-      this.search(pokemon.name.toLowerCase(), input.toLowerCase())
-    );
-    this.searchedPokemon = filteredPokemon;
-    await this.loadSearchDetails(this.searchedPokemon, this.searchedPokeDetails);
-    
-  }
-
-  /**
-   * 
-   * @param name 
-   * @param input 
-   * @returns return the name that is included in the array
-   */
-  search(name: string, input: string) {
-    return name.includes(input);
-  }
-
-  /**
-   * 
-   * @returns the all pokemon or searched pokemon
-   */
-  arrToShown() {
-    if (this.searchedPokeDetails.length > 0) {
-      return this.searchedPokeDetails[this.selectedIndexForDetails];
-    } else {
-      return this.pokeDetails[this.selectedIndexForDetails];
-    }
-  }
-
-  /**
-   * 
-   * @param pokemon 
+   * @param pokemon
    * @returns the color for the pokemon type
    */
   getBgColor(pokemon: PokemonDetails): string {
