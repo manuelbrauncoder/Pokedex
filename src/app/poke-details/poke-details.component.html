@@ -2,7 +2,9 @@
   <div
     class="upper"
     [ngStyle]="{
-      'background-color': apiService.getBgColor(apiService.pokeDetailWithIndex())
+      'background-color': apiService.getBgColor(
+        apiService.pokeDetailWithIndex()
+      )
     }"
   >
     <div class="headline">
@@ -31,11 +33,61 @@
   </div>
   <div class="lower">
     <header>
-      <h3>About</h3>
-      <h3>Stats</h3>
-      <h3>Evolution</h3>
-      <h3>Moves</h3>
+      <h3
+        (click)="setActiveSection('about')"
+        [ngStyle]="{
+          'background-color':
+            activeSection === 'about'
+              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              : 'white'
+        }"
+        [ngClass]="{ active: activeSection === 'about' }"
+      >
+        About
+      </h3>
+      <h3
+        (click)="setActiveSection('stats')"
+        [ngStyle]="{
+          'background-color':
+            activeSection === 'stats'
+              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              : 'white'
+        }"
+        [ngClass]="{ active: activeSection === 'stats' }"
+      >
+        Stats
+      </h3>
+      <h3
+        (click)="setActiveSection('evo')"
+        [ngStyle]="{
+          'background-color':
+            activeSection === 'evo'
+              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              : 'white'
+        }"
+        [ngClass]="{ active: activeSection === 'evo' }"
+      >
+        Evolution
+      </h3>
+      <h3
+        (click)="setActiveSection('moves')"
+        [ngStyle]="{
+          'background-color':
+            activeSection === 'moves'
+              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              : 'white'
+        }"
+        [ngClass]="{ active: activeSection === 'moves' }"
+      >
+        Moves
+      </h3>
     </header>
+    <section>
+      @switch (true) { @case (activeSection === 'about') {<app-about
+      ></app-about>} @case (activeSection === 'stats') {<app-stats></app-stats>}
+      @case (activeSection === 'evo') {<app-evo></app-evo>} @case
+      (activeSection=== 'moves') {<app-moves></app-moves>} }
+    </section>
   </div>
 </main>
 

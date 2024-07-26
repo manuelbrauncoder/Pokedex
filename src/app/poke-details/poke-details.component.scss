@@ -28,11 +28,6 @@ main {
     padding-top: 32px;
     h3 {
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-        text-underline-offset: 4px;
-        text-decoration-thickness: 3px;
-      }
     }
   }
 }
@@ -85,4 +80,9 @@ main {
 .pokeImg {
   width: 250px;
   height: auto;
+}
+
+.active{
+  padding: 4px 8px;
+  border-radius: 100vw;
 }
