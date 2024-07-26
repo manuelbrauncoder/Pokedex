@@ -1,3 +1,6 @@
 <section>
   <app-poke-list></app-poke-list>
+  @if (apiService.isLoading) {
+    <app-loading-spinner></app-loading-spinner>
+  }
 </section>

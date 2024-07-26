@@ -16,6 +16,8 @@ export class ApiService {
   searchedPokemon: Root[] = [];
   allPokemon: Root[] = [];
 
+  isLoading: boolean = false;
+
   selectedIndexForDetails: number = 0;
 
   colors: TypeColor[] = [

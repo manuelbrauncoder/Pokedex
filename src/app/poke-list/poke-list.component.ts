@@ -30,7 +30,9 @@ export class PokeListComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.apiService.isLoading = true;
     await this.apiService.prepareUrlToFetch();
+    this.apiService.isLoading = false;
     this.apiService.displayedPokemon = this.apiService.allPokemon;
   }
 }
