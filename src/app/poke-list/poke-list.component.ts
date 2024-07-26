@@ -4,11 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { PokeDetailsComponent } from '../poke-details/poke-details.component';
 import { ZeroPadPipe } from '../pipes/zero-pad.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-poke-list',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, PokeDetailsComponent, ZeroPadPipe],
+  imports: [HttpClientModule, CommonModule, PokeDetailsComponent, ZeroPadPipe, FormsModule],
   templateUrl: './poke-list.component.html',
   styleUrl: './poke-list.component.scss',
 })
@@ -16,6 +17,8 @@ export class PokeListComponent implements OnInit {
   public apiService = inject(ApiService);
 
   detailboxShown: boolean = false;
+
+  
 
   changeDetailViewState(state: boolean){
     this.detailboxShown = state;
@@ -27,6 +30,7 @@ export class PokeListComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.apiService.prepareUrlToFetch();    
+    await this.apiService.prepareUrlToFetch();
+    this.apiService.displayedPokemon = this.apiService.allPokemon;
   }
 }

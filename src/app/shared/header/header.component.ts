@@ -12,4 +12,9 @@ import { ApiService } from '../../services/api.service';
 export class HeaderComponent {
   public apiService = inject(ApiService);
   searchInput: string = '';
+
+  search(){
+    this.apiService.resetSearch();
+    this.apiService.filterPokemon(this.searchInput);
+  }
 }

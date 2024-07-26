@@ -11,7 +11,11 @@ import { Root } from '../interfaces/types';
 })
 export class ApiService {
 
-  pokemon: Root[] = [];
+  displayedPokemon: Root[] = [];
+
+  searchedPokemon: Root[] = [];
+  allPokemon: Root[] = [];
+
   selectedIndexForDetails: number = 0;
 
   colors: TypeColor[] = [
@@ -57,7 +61,9 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.fetchClassicPokemon(url).subscribe({
         next: (pokemon) => {
-          this.pokemon.push(pokemon);
+          console.log(pokemon);
+          
+          this.allPokemon.push(pokemon);
           resolve();
         },
         error: (err) => {
@@ -69,7 +75,7 @@ export class ApiService {
   }
 
   pokeDetailWithIndex(){
-    return this.pokemon[this.selectedIndexForDetails];
+    return this.displayedPokemon[this.selectedIndexForDetails];
   }
 
   /**
@@ -94,5 +100,20 @@ export class ApiService {
     const type = pokemon.types[0].type.name;
     const colorObj = this.colors.find((color) => color.name === type);
     return colorObj ? colorObj.color : 'green';
+  }
+
+  resetSearch(){
+    this.searchedPokemon = [];
+    this.displayedPokemon = this.allPokemon;
+  }
+
+  filterPokemon(input: string){
+    this.resetSearch();
+    let filteredPokemon = this.allPokemon.filter(pokemon => this.searchPokemon(pokemon.name.toLowerCase(), input));
+    this.displayedPokemon = filteredPokemon;
+  }
+
+  searchPokemon(pokeName: string, input: string){
+    return pokeName.includes(input);
   }
 }

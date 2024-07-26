@@ -1,6 +1,6 @@
 <main>
   <div class="pokeList">
-    @for (pokeDetail of apiService.pokemon; track pokeDetail.name;
+    @for (pokeDetail of apiService.displayedPokemon; track pokeDetail.name;
     let index = $index;) {
     <div
       [ngStyle]="{ 'background-color': apiService.getBgColor(pokeDetail) }"

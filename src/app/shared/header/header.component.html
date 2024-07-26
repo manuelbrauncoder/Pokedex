@@ -1,6 +1,6 @@
 <header>
   <img src="/assets/img/pokedexLogo.png" alt="">
-  <input [(ngModel)]="searchInput"  type="text" placeholder="search pokemon..." />
+  <input (input)="search()" [(ngModel)]="searchInput"  type="text" placeholder="search pokemon..." />
 </header>
 
 <!-- (input)="search()" -->
