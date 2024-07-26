@@ -86,7 +86,8 @@
       @switch (true) { @case (activeSection === 'about') {<app-about
       ></app-about>} @case (activeSection === 'stats') {<app-stats></app-stats>}
       @case (activeSection === 'evo') {<app-evo></app-evo>} @case
-      (activeSection=== 'moves') {<app-moves></app-moves>} }
+      (activeSection=== 'moves') {<app-moves></app-moves>}
+    @default {<app-about></app-about>} }
     </section>
   </div>
 </main>

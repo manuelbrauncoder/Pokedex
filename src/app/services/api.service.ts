@@ -63,7 +63,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.fetchClassicPokemon(url).subscribe({
         next: (pokemon) => {
-          console.log(pokemon);
+          // console.log(pokemon);
           
           this.allPokemon.push(pokemon);
           resolve();

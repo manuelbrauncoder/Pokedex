@@ -1,1 +1,5 @@
-<p>moves works!</p>
+<div>
+    @for (move of currentPokemon.moves; track $index) {
+        <p>{{ move.move.name }}</p>
+    }
+</div>
