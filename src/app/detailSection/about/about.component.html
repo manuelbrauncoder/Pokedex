@@ -1,8 +1,30 @@
-<p>{{currentPokemon.height}}</p>
+<!-- <p>{{currentPokemon.height}}</p>
 <p>{{currentPokemon.weight}}</p>
 <div>
     @for (ability of currentPokemon.abilities; track $index) {
         <p>{{ability.ability.name}}</p>
     }
-</div>
-
+</div> -->
+<section>
+    <table>
+        <tr>
+            <th>Weight:</th>
+            <th>{{currentPokemon.weight | weight }}</th>
+        </tr>
+        <tr>
+            <th>Height:</th>
+            <th>{{currentPokemon.height | height }}</th>
+        </tr>
+        <tr>
+            <th>Base Exp:</th>
+            <th>{{ currentPokemon.base_experience }}</th>
+        </tr>
+        <tr>
+            <th>Abilities:</th>
+            <th>@for (ability of currentPokemon.abilities; track $index) {
+                <span>{{ ability.ability.name }} </span>
+                }
+            </th>
+        </tr>
+    </table>
+</section>
