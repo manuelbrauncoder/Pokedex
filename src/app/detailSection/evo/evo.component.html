@@ -1,1 +1,9 @@
-<p>evo works!</p>
+<div class="evoBox">
+  @for (item of apiService.chain; track $index) {
+  <div class="singleChain">
+    <h3>{{ item.name | titlecase }}</h3>
+    <img class="evoImg" src="{{ item.url }}" alt="" />
+  </div>
+
+  }
+</div>

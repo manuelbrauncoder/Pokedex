@@ -1,5 +1,13 @@
-div{
+@import '../../../styles.scss';
+
+.movesBox{
     height: 100%;
     overflow-y: auto;
-    border: 1px solid green;
+    @include dFlex($g: 4px);
+    flex-wrap: wrap;
+    padding: 16px 8px;
+    span{
+        @extend .spanBubble;
+        background-color: rgba(207, 207, 207, 0.3);
+    }
 }

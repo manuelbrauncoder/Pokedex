@@ -19,7 +19,7 @@ main {
 .lower {
   height: 50%;
   width: 100%;
-  background-color: white;
+  background-color: rgba(230, 230, 230, 1);
   border-radius: 32px 32px 0 0;
   margin-top: -32px;
   header {
@@ -29,6 +29,9 @@ main {
     h3 {
       cursor: pointer;
     }
+  }
+  section{
+    height: 80%;
   }
 }
 

@@ -39,7 +39,7 @@
           'background-color':
             activeSection === 'about'
               ? apiService.getBgColor(apiService.pokeDetailWithIndex())
-              : 'white'
+              : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'about' }"
       >
@@ -51,7 +51,7 @@
           'background-color':
             activeSection === 'stats'
               ? apiService.getBgColor(apiService.pokeDetailWithIndex())
-              : 'white'
+              : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'stats' }"
       >
@@ -63,7 +63,7 @@
           'background-color':
             activeSection === 'evo'
               ? apiService.getBgColor(apiService.pokeDetailWithIndex())
-              : 'white'
+              : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'evo' }"
       >
@@ -75,7 +75,7 @@
           'background-color':
             activeSection === 'moves'
               ? apiService.getBgColor(apiService.pokeDetailWithIndex())
-              : 'white'
+              : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'moves' }"
       >
@@ -83,11 +83,12 @@
       </h3>
     </header>
     <section>
-      @switch (true) { @case (activeSection === 'about') {<app-about
-      ></app-about>} @case (activeSection === 'stats') {<app-stats></app-stats>}
-      @case (activeSection === 'evo') {<app-evo></app-evo>} @case
-      (activeSection=== 'moves') {<app-moves></app-moves>}
-    @default {<app-about></app-about>} }
+      @switch (true) { 
+        @case (activeSection === 'about') {<app-about ></app-about>}
+        @case (activeSection === 'stats') {<app-stats></app-stats>}
+        @case (activeSection === 'evo') {<app-evo></app-evo>} 
+        @case (activeSection=== 'moves') {<app-moves></app-moves>}
+        @default {<app-about></app-about>} }
     </section>
   </div>
 </main>

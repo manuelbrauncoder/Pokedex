@@ -21,13 +21,15 @@
       </div>
     </div>
   
-    @if (detailboxShown) {
-    <app-poke-details
-      (showDetailView)="changeDetailViewState($event)"
-    ></app-poke-details>
-    } } @empty {
+     } @empty {
       <h1>No Pokemon loaded!</h1>
     }
   </div>
+
+  @if (detailboxShown) {
+    <app-poke-details
+      (showDetailView)="changeDetailViewState($event)"
+    ></app-poke-details>
+    }
 </main>
 

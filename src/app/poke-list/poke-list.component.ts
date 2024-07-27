@@ -35,6 +35,10 @@ export class PokeListComponent implements OnInit {
     this.apiService.isLoading = false;
     this.apiService.displayedPokemon = this.apiService.allPokemon;
     console.log(this.apiService.allPokemon[0]);
+    await this.apiService.getCompleteList();
+    console.log(this.apiService.completePokeList);
+    await this.apiService.prepareUrlForAll();
+    console.log(this.apiService.allDetails);
     
   }
 }
