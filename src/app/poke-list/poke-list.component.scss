@@ -1,6 +1,8 @@
 @import '../../styles.scss';
 
 main{
+    max-width: $content-limit;
+    margin-inline: auto;
     min-height: calc(100vh - 160px);
     @include dFlex($fd: column, $g: 16px);
     animation-duration: 125ms;

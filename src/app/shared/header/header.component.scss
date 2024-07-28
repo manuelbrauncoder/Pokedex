@@ -1,6 +1,6 @@
 @import "../../../styles.scss";
 
-header {
+.background{
   position: fixed;
   top: 0;
   left: 0;
@@ -8,10 +8,18 @@ header {
   min-height: 80px;
   background-color: #f5f1f1;
   box-shadow: -10px 0px 5px 2px #b2a9a9;
+  @include dFlex();
+}
+
+header {
+  width: 100%;
+  max-width: $content-limit;
+  margin-inline: auto;
+  padding: 0 64px;
   @include dFlex($jc: space-around);
   @media(max-width: 599px){
     flex-direction: column;
-    padding: 32px 0;
+    padding: 16px 0;
     gap: 16px;
   }
   img {
