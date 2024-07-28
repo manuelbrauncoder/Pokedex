@@ -38,6 +38,14 @@ export class PokeDetailsComponent implements OnInit {
     this.speciesUrl = this.currentPokemon.species.url;
     await this.apiService.getSpecies(this.speciesUrl);
     await this.apiService.getEvochain(this.apiService.evoUrl);
+    this.setDataForChart();
+  }
+
+  setDataForChart(){
+    this.currentPokemon.stats.forEach((stat) => {
+      this.apiService.chartLabels.push(stat.stat.name);
+      this.apiService.chartData.push(stat.base_stat);
+    })
   }
 
   setActiveSection(section: 'about' | 'stats' | 'evo' | 'moves') {

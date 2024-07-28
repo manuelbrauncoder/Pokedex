@@ -17,9 +17,12 @@ export class ApiService {
   searchedPokemon: Root[] = [];
   allPokemon: Root[] = [];
 
-  allDetails: Root[] = [];
+  chartLabels: string[] = [];
+  chartData: number[] = [];
 
-  isLoading: boolean = false;
+  allDetails: Root[] = []; // just for evolution chain
+
+  isLoading: boolean = false; // loading spinner
 
   selectedIndexForDetails: number = 0;
 
@@ -109,6 +112,9 @@ export class ApiService {
     });
   }
 
+  /**
+   * prepare url for classic pokemon
+   */
   async prepareUrlToFetch() {
     while (this.pokeOffset <= this.classicLimit) {
       const url = `${this.baseUrl}${this.pokeOffset}/`;
@@ -117,10 +123,20 @@ export class ApiService {
     }
   }
 
+  /**
+   * 
+   * @param url 
+   * @returns a subscribable Observable
+   */
   fetchClassicPokemon(url: string): Observable<Root> {
     return this.http.get<Root>(url);
   }
 
+  /**
+   * 
+   * @param url 
+   * @returns a promise with pokomon details
+   */
   async getClassicPokeDetails(url: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchClassicPokemon(url).subscribe({
