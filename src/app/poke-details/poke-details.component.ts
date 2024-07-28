@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { ZeroPadPipe } from '../pipes/zero-pad.pipe';
@@ -23,7 +23,7 @@ import { EvolutionChainDetails } from '../interfaces/chain';
   templateUrl: './poke-details.component.html',
   styleUrl: './poke-details.component.scss',
 })
-export class PokeDetailsComponent implements OnInit {
+export class PokeDetailsComponent implements OnInit, OnDestroy {
   public apiService = inject(ApiService);
   @Output() showDetailView = new EventEmitter<boolean>();
 
@@ -39,6 +39,11 @@ export class PokeDetailsComponent implements OnInit {
     await this.apiService.getSpecies(this.speciesUrl);
     await this.apiService.getEvochain(this.apiService.evoUrl);
     this.setDataForChart();
+  }
+
+  ngOnDestroy(): void {
+    this.apiService.chartData = [];
+    this.apiService.chartLabels = [];
   }
 
   setDataForChart(){

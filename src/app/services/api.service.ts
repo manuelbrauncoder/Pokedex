@@ -13,14 +13,14 @@ import { Pokemon } from '../interfaces/pokemon';
   providedIn: 'root',
 })
 export class ApiService {
-  displayedPokemon: Root[] = [];
-  searchedPokemon: Root[] = [];
-  allPokemon: Root[] = [];
+  displayedPokemon: Root[] = []; // displayed pokemon
+  searchedPokemon: Root[] = []; // cache for searched pokemon
+  allPokemon: Root[] = []; // all classic pokemon
 
   chartLabels: string[] = [];
   chartData: number[] = [];
 
-  allDetails: Root[] = []; // just for evolution chain
+  allDetails: Root[] = []; // just for evolution chain data
 
   isLoading: boolean = false; // loading spinner
 
@@ -29,7 +29,6 @@ export class ApiService {
   evoUrl: string = '';
   currentEvoChain: EvolutionChainDetails[] = [];
 
-  evoChainCache: any;
 
   chain: DisplayedChain[] = [];
 
@@ -152,6 +151,10 @@ export class ApiService {
     });
   }
 
+  /**
+   * 
+   * @returns the pokemon with selected index for detail view
+   */
   pokeDetailWithIndex() {
     return this.displayedPokemon[this.selectedIndexForDetails];
   }
@@ -185,6 +188,10 @@ export class ApiService {
     this.displayedPokemon = this.allPokemon;
   }
 
+  /**
+   * filter pokemon, change displayed pokemon array
+   * @param input 
+   */
   filterPokemon(input: string) {
     this.resetSearch();
     let filteredPokemon = this.allPokemon.filter((pokemon) =>
@@ -193,6 +200,12 @@ export class ApiService {
     this.displayedPokemon = filteredPokemon;
   }
 
+  /**
+   * 
+   * @param pokeName 
+   * @param input 
+   * @returns pokemon that includes input
+   */
   searchPokemon(pokeName: string, input: string) {
     return pokeName.includes(input);
   }
@@ -209,7 +222,6 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.fetchEvoChain(url).subscribe({
         next: (res) => {
-          console.log('getEvoChain log', res);
           this.cacheChainDetails(res);
           resolve();
         },
@@ -245,9 +257,13 @@ export class ApiService {
         }
       }
     }
-  
   }
 
+  /**
+   * 
+   * @param name 
+   * @returns url for the pokemon image in the evolution chain
+   */
   getImageForChain(name: string): string {
     let imgUrl: string = '';
   
@@ -257,9 +273,15 @@ export class ApiService {
       }
     });
   
-    return imgUrl || 'default_image_url'; // Fallback-Wert
+    return imgUrl || 'default_image_url';
   }
 
+  /**
+   * 
+   * @param pokename 
+   * @param pokeUrl 
+   * @returns object for pokemon evolution chain
+   */
   getChainObject(pokename: string, pokeUrl: string) {
     return {
       name: pokename,

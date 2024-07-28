@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { ApiService } from '../../services/api.service';
 
@@ -9,7 +9,7 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss',
 })
-export class StatsComponent implements OnInit, OnDestroy {
+export class StatsComponent implements OnInit {
   apiService = inject(ApiService);
   chart: any = [];
 
@@ -19,10 +19,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     this.initChart();
   }
 
-  ngOnDestroy(): void {
-    this.apiService.chartData = [];
-    this.apiService.chartLabels = [];
-  }
+ 
 
   initChart(){
     this.chart = new Chart('canvas', {

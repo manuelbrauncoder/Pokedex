@@ -8,12 +8,17 @@ main {
   transform: translate(-50%, -50%);
   height: 700px;
   width: 500px;
+  @media(max-width: 599px) {
+    width: 90%;
+    height: 90%;
+  }
 }
 
 .upper {
   height: 50%;
   width: 100%;
   padding: 16px;
+  @include dFlex($fd: column);
 }
 
 .lower {
@@ -27,7 +32,11 @@ main {
     width: 100%;
     padding-top: 32px;
     h3 {
+      font-size: 20px;
       cursor: pointer;
+      @media(max-width: 599px) {
+        font-size: 16px;
+      }
     }
   }
   section{
@@ -46,6 +55,8 @@ main {
 }
 
 .headline {
+  width: 100%;
+  margin-bottom: auto;
   @include dFlex($jc: space-between);
   .closeBtn {
     width: 30px;
@@ -67,12 +78,19 @@ main {
       @extend .spanBubble;
       font-size: 20px;
       font-weight: 500;
+      @media(max-width: 599px) {
+        display: none;
+      }
     }
   }
 }
 
 .imgAndTypes {
+  margin-bottom: auto;
   @include dFlex($jc: space-evenly);
+  @media(max-width: 599px) {
+    flex-direction: column;
+  }
 }
 
 .types {
@@ -80,11 +98,17 @@ main {
   span {
     @extend .spanBubble;
   }
+  @media(max-width: 599px) {
+      flex-direction: row;
+  }
 }
 
 .pokeImg {
   width: 250px;
   height: auto;
+  @media(max-width: 599px) {
+    width: 200px;
+  }
 }
 
 .active{
