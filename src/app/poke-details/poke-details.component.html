@@ -12,7 +12,7 @@
         <h3>{{ apiService.pokeDetailWithIndex().name | titlecase }}</h3>
         <span>#{{ apiService.pokeDetailWithIndex().id | zeroPad : 4 }}</span>
       </div>
-      <span class="closeBtn" (click)="toggleDetailView()">X</span>
+      <img (click)="toggleDetailView()" class="closeBtn" src="/assets/img/close-icon.png" alt="">
     </div>
 
     <div class="imgAndTypes">
