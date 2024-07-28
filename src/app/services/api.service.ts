@@ -17,6 +17,8 @@ export class ApiService {
   searchedPokemon: Root[] = []; // cache for searched pokemon
   allPokemon: Root[] = []; // all classic pokemon
 
+  searchInput: string = '';
+
   chartLabels: string[] = [];
   chartData: number[] = [];
 

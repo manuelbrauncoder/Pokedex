@@ -1,0 +1,32 @@
+@import "../../../styles.scss";
+
+footer {
+  width: 100%;
+  min-height: 80px;
+  @include dFlex($jc: space-evenly);
+  background-color: #f5f1f1;
+  box-shadow: -10px 0px 5px 2px #b2a9a9;
+  img {
+    height: 50px;
+    width: auto;
+  }
+  > div {
+    @include dFlex($g: 4px);
+    span {
+      color: $poke-blue;
+    }
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      color: $poke-blue;
+      font-size: 16px;
+      font-weight: 500;
+      &:hover{
+        text-decoration: underline;
+        text-decoration-color: $poke-yellow;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 3px;
+      }
+    }
+  }
+}

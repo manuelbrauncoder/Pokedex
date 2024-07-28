@@ -18,7 +18,10 @@ export class PokeListComponent implements OnInit {
 
   detailboxShown: boolean = false;
 
-  
+  goBack(){
+    this.apiService.displayedPokemon = this.apiService.allPokemon;
+    this.apiService.searchInput = '';
+  }
 
   changeDetailViewState(state: boolean){
     this.detailboxShown = state;
@@ -35,6 +38,6 @@ export class PokeListComponent implements OnInit {
     this.apiService.isLoading = false;
     this.apiService.displayedPokemon = this.apiService.allPokemon;
     await this.apiService.getCompleteList();
-    await this.apiService.prepareUrlForAll();    
+    await this.apiService.prepareUrlForAll();        
   }
 }

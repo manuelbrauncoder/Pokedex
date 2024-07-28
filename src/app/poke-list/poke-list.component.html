@@ -1,4 +1,7 @@
 <main>
+  @if (apiService.displayedPokemon.length < 150) {
+    <button (click)="goBack()">Back</button>
+  }
   <div class="pokeList">
     @for (pokeDetail of apiService.displayedPokemon; track pokeDetail.name;
     let index = $index;) {
