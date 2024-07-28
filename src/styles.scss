@@ -1,3 +1,7 @@
+
+$poke-yellow: rgb(255,206,48);
+$poke-blue: rgb(2,0,101);
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -27,4 +31,22 @@ body {
   border-radius: 100vw;
   font-size: 16px;
   font-weight: 500;
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $poke-yellow;
+  border-radius: 100vw;
+  border: 3px solid $poke-blue;
+  &:hover {
+    cursor: pointer;
+    background: $poke-blue;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(226, 226, 226);
 }

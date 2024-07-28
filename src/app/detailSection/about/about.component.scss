@@ -17,4 +17,15 @@ table{
             text-align: left;
         }
     }
+    @media(max-width: 599px){
+        font-size: 16px;
+    }
+}
+
+.prop{
+    font-weight: 800;
+}
+
+.value{
+    font-weight: 500;
 }

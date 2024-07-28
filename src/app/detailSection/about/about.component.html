@@ -1,28 +1,25 @@
-<!-- <p>{{currentPokemon.height}}</p>
-<p>{{currentPokemon.weight}}</p>
-<div>
-    @for (ability of currentPokemon.abilities; track $index) {
-        <p>{{ability.ability.name}}</p>
-    }
-</div> -->
+
 <section>
     <table>
         <tr>
-            <th>Weight:</th>
-            <th>{{currentPokemon.weight | weight }}</th>
+            <th class="prop">Weight:</th>
+            <th class="value">{{currentPokemon.weight | weight }}</th>
         </tr>
         <tr>
-            <th>Height:</th>
-            <th>{{currentPokemon.height | height }}</th>
+            <th class="prop">Height:</th>
+            <th class="value">{{currentPokemon.height | height }}</th>
         </tr>
         <tr>
-            <th>Base Exp:</th>
-            <th>{{ currentPokemon.base_experience }}</th>
+            <th class="prop">Base Exp:</th>
+            <th class="value">{{ currentPokemon.base_experience }}</th>
         </tr>
         <tr>
-            <th>Abilities:</th>
-            <th>@for (ability of currentPokemon.abilities; track $index) {
-                <span>{{ ability.ability.name }} </span>
+            <th class="prop">Abilities:</th>
+            <th class="value">@for (ability of currentPokemon.abilities; track ability.ability.name; let index = $index) {
+                <span>{{ ability.ability.name }}</span>
+                @if (index < (currentPokemon.abilities.length -1)) {
+                    <span>, </span>
+                }
                 }
             </th>
         </tr>

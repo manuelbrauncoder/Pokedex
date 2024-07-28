@@ -46,17 +46,41 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     this.apiService.chartLabels = [];
   }
 
+  /**
+   * set Data for chart with current pokemon
+   */
   setDataForChart(){
     this.currentPokemon.stats.forEach((stat) => {
-      this.apiService.chartLabels.push(stat.stat.name);
+      let name = this.capitalizeFirstLetter(stat.stat.name);
+      this.apiService.chartLabels.push(name);
       this.apiService.chartData.push(stat.base_stat);
     })
   }
 
+  /**
+   * 
+   * @param input string to capitalize
+   * @returns capitalized string
+   */
+  capitalizeFirstLetter(input: string): string {
+    let letter = input.charAt(0);
+    let uppercaseLetter = letter.toUpperCase();
+    let restWord = input.slice(1);
+    let capString = uppercaseLetter + restWord;
+    return capString;
+  }
+
+  /**
+   * set active section
+   * @param section 
+   */
   setActiveSection(section: 'about' | 'stats' | 'evo' | 'moves') {
     this.activeSection = section;
   }
 
+  /**
+   * toggle detail view
+   */
   toggleDetailView() {
     this.showDetailView.emit(false);
   }
