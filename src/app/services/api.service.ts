@@ -22,7 +22,7 @@ export class ApiService {
   chartLabels: string[] = [];
   chartData: number[] = [];
 
-  allDetails: Root[] = []; // just for evolution chain data
+  detailsCache: Root[] = [] // cache for image
 
   isLoading: boolean = false; // loading spinner
 
@@ -59,31 +59,30 @@ export class ApiService {
   ];
 
   pokeOffset: number = 1;
-  classicLimit: number = 151;
-  allLimit: number = 1025;
-  allOffset: number = 1;
+  classicLimit: number = 25;
+
   baseUrl: string = `https://pokeapi.co/api/v2/pokemon/`;
   completeListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0';
 
   constructor(private http: HttpClient) {}
 
-  async prepareUrlForAll() {
-    while (this.allOffset <= this.allLimit) {
-      const url = `${this.baseUrl}${this.allOffset}/`;
-      await this.getAllDetails(url);
-      this.allOffset++;
-    }
+  async loadMore(){
+    this.classicLimit += 25;
+    this.isLoading = true;
+    await this.prepareUrlToFetch();
+    this.displayedPokemon = this.allPokemon;
+    this.isLoading = false;
   }
 
   fetchAllDetails(url: string): Observable<any> {
     return this.http.get<any>(url);
   }
 
-  getAllDetails(url: string): Promise<void> {
+  getAllDetails(url: string, arrToPush: Root[]): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchAllDetails(url).subscribe({
         next: (all) => {
-          this.allDetails.push(all);
+          arrToPush.push(all);
           resolve();
         },
         error: (err) => {
@@ -186,21 +185,26 @@ export class ApiService {
   }
 
   resetSearch() {
+    console.log('resetting search...');
+    
     this.searchedPokemon = [];
     this.displayedPokemon = this.allPokemon;
   }
 
-  /**
-   * filter pokemon, change displayed pokemon array
-   * @param input 
-   */
+  
+
   filterPokemon(input: string) {
+    console.log('Filtering Pokemon with input:', input);
     this.resetSearch();
-    let filteredPokemon = this.allPokemon.filter((pokemon) =>
-      this.searchPokemon(pokemon.name.toLowerCase(), input)
+    let trimmedInput = input.trim().toLowerCase();
+    let filteredPokemon = this.allPokemon.filter(pokemon => 
+      this.searchPokemon(pokemon.name.toLowerCase(), trimmedInput)
     );
+    console.log('Filtered Pokemon:', filteredPokemon);
     this.displayedPokemon = filteredPokemon;
   }
+
+
 
   /**
    * 
@@ -209,6 +213,8 @@ export class ApiService {
    * @returns pokemon that includes input
    */
   searchPokemon(pokeName: string, input: string) {
+    console.log(`searching for ${input} in ${pokeName}`);
+    
     return pokeName.includes(input);
   }
 
@@ -240,19 +246,19 @@ export class ApiService {
     this.chain = [];
     
     if (res.chain && res.chain.species && res.chain.species.name) {
-      let url1: string = this.getImageForChain(res.chain.species.name);
+      let url1: string = await this.getImageForChain(res.chain.species.name);
       let obj1 = this.getChainObject(res.chain.species.name, url1);
       
       this.chain.push(obj1);
       
       if (res.chain.evolves_to && res.chain.evolves_to.length > 0) {
-        let url2 = this.getImageForChain(res.chain.evolves_to[0].species.name);
+        let url2 = await this.getImageForChain(res.chain.evolves_to[0].species.name);
         let obj2 = this.getChainObject(res.chain.evolves_to[0].species.name, url2);
         
         this.chain.push(obj2);
         
         if (res.chain.evolves_to[0].evolves_to && res.chain.evolves_to[0].evolves_to.length > 0) {
-          let url3 = this.getImageForChain(res.chain.evolves_to[0].evolves_to[0].species.name);
+          let url3 = await this.getImageForChain(res.chain.evolves_to[0].evolves_to[0].species.name);
           let obj3 = this.getChainObject(res.chain.evolves_to[0].evolves_to[0].species.name, url3);
           
           this.chain.push(obj3);
@@ -261,20 +267,17 @@ export class ApiService {
     }
   }
 
-  /**
-   * 
-   * @param name 
-   * @returns url for the pokemon image in the evolution chain
-   */
-  getImageForChain(name: string): string {
-    let imgUrl: string = '';
-  
-    this.allDetails.forEach((pokemon) => {
-      if (pokemon && pokemon.name.toLowerCase() === name.toLowerCase()) {
-        imgUrl = pokemon.sprites.other['official-artwork'].front_default;
+  async getImageForChain(name: string): Promise<string> {
+    this.detailsCache = [];
+    let imgUrl: string = '';    
+    for (let pokemon of this.completePokeList) {
+      if (pokemon && pokemon.name.toLowerCase() === name.toLowerCase()) {        
+        let url = pokemon.url;
+        await this.getAllDetails(url, this.detailsCache);
+        imgUrl = this.detailsCache[0].sprites.other['official-artwork'].front_default;
+        break;
       }
-    });
-  
+    }
     return imgUrl || 'default_image_url';
   }
 

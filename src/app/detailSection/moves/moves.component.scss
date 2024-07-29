@@ -3,7 +3,7 @@
 .movesBox{
     height: 100%;
     overflow-y: auto;
-    @include dFlex($g: 4px);
+    @include dFlex($g: 4px, $ai: flex-start);
     flex-wrap: wrap;
     padding: 16px 8px;
     span{

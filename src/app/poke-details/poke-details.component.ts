@@ -36,9 +36,9 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.activeSection = 'about';
     this.speciesUrl = this.currentPokemon.species.url;
+    this.setDataForChart();
     await this.apiService.getSpecies(this.speciesUrl);
     await this.apiService.getEvochain(this.apiService.evoUrl);
-    this.setDataForChart();
   }
 
   ngOnDestroy(): void {

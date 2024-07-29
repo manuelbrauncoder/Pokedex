@@ -12,7 +12,7 @@
         <h3>{{ apiService.pokeDetailWithIndex().name | titlecase }}</h3>
         <span>#{{ apiService.pokeDetailWithIndex().id | zeroPad : 4 }}</span>
       </div>
-      <img (click)="toggleDetailView()" class="closeBtn" src="/assets/img/close-icon.png" alt="">
+      <svg class="closeBtn" (click)="toggleDetailView()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
     </div>
 
     <div class="imgAndTypes">

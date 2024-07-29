@@ -1,5 +1,5 @@
 <main>
-  @if (apiService.displayedPokemon.length < 150) {
+  @if (apiService.displayedPokemon.length < apiService.allPokemon.length) {
     <button (click)="goBack()">Back</button>
   }
   <div class="pokeList">
@@ -33,6 +33,9 @@
     <app-poke-details
       (showDetailView)="changeDetailViewState($event)"
     ></app-poke-details>
+    }
+    @if (apiService.displayedPokemon.length === apiService.allPokemon.length) {
+      <button (click)="apiService.loadMore()">Load more</button>
     }
 </main>
 
