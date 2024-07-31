@@ -48,6 +48,12 @@ export class StatsComponent implements OnInit {
             beginAtZero: true,
             grid: {
               display: false
+            },
+            ticks: {
+              font: {
+                family: 'Nunito',
+                weight: 700,
+              }
             }
           },
         },
