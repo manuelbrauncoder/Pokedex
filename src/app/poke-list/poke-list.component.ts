@@ -37,6 +37,6 @@ export class PokeListComponent implements OnInit {
     await this.apiService.prepareUrlToFetch();
     this.apiService.isLoading = false;
     this.apiService.displayedPokemon = this.apiService.allPokemon;
-    await this.apiService.getCompleteList();        
+    await this.apiService.getCompleteList();         
   }
 }

@@ -1,30 +1,35 @@
 <main>
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+    <svg (click)="nextPokemon()" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+  </div>
+
   <div
     class="upper"
     [ngStyle]="{
       'background-color': apiService.getBgColor(
-        apiService.pokeDetailWithIndex()
+        currentPokemon
       )
     }"
   >
     <div class="headline">
       <div>
-        <h3>{{ apiService.pokeDetailWithIndex().name | titlecase }}</h3>
-        <span>#{{ apiService.pokeDetailWithIndex().id | zeroPad : 4 }}</span>
+        <h3>{{ currentPokemon.name | titlecase }}</h3>
+        <span>#{{ currentPokemon.id | zeroPad : 4 }}</span>
       </div>
       <svg class="closeBtn" (click)="toggleDetailView()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
     </div>
 
     <div class="imgAndTypes">
       <div class="types">
-        @for (poke of apiService.pokeDetailWithIndex().types; track $index) {
+        @for (poke of currentPokemon.types; track $index) {
         <span>{{ poke.type.name | titlecase }}</span>
         }
       </div>
       <img
         class="pokeImg"
         src="{{
-          apiService.pokeDetailWithIndex().sprites.other['official-artwork']
+          currentPokemon.sprites.other['official-artwork']
             .front_default
         }}"
         alt=""
@@ -38,7 +43,7 @@
         [ngStyle]="{
           'background-color':
             activeSection === 'about'
-              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              ? apiService.getBgColor(currentPokemon)
               : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'about' }"
@@ -50,7 +55,7 @@
         [ngStyle]="{
           'background-color':
             activeSection === 'stats'
-              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              ? apiService.getBgColor(currentPokemon)
               : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'stats' }"
@@ -62,7 +67,7 @@
         [ngStyle]="{
           'background-color':
             activeSection === 'evo'
-              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              ? apiService.getBgColor(currentPokemon)
               : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'evo' }"
@@ -74,7 +79,7 @@
         [ngStyle]="{
           'background-color':
             activeSection === 'moves'
-              ? apiService.getBgColor(apiService.pokeDetailWithIndex())
+              ? apiService.getBgColor(currentPokemon)
               : 'rgba(230, 230, 230, 1)'
         }"
         [ngClass]="{ active: activeSection === 'moves' }"
@@ -84,7 +89,7 @@
     </header>
     <section>
       @switch (true) { 
-        @case (activeSection === 'about') {<app-about ></app-about>}
+        @case (activeSection === 'about') {<app-about [pokemon]="currentPokemon" ></app-about>}
         @case (activeSection === 'stats') {<app-stats></app-stats>}
         @case (activeSection === 'evo') {<app-evo></app-evo>} 
         @case (activeSection=== 'moves') {<app-moves></app-moves>}
@@ -92,5 +97,6 @@
     </section>
   </div>
 </main>
+
 
 <div (click)="toggleDetailView()" class="background"></div>

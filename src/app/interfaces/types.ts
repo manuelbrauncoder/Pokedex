@@ -1,7 +1,6 @@
-// export interface Types {
-// }
 
-export interface Root {
+
+export interface PokemonDetails {
     abilities: Ability[]
     base_experience: number
     cries: Cries

@@ -1,6 +1,7 @@
 @import "../../styles.scss";
 
 main {
+  @include dFlex($fd: column);
   z-index: 3;
   position: fixed;
   top: 50%;

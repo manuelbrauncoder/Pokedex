@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Root } from '../../interfaces/types';
+import { PokemonDetails } from '../../interfaces/types';
 import { WeightPipe } from '../../pipes/weight.pipe';
 import { HeightPipe } from '../../pipes/height.pipe';
 
@@ -14,5 +14,7 @@ import { HeightPipe } from '../../pipes/height.pipe';
 export class AboutComponent {
 public apiService = inject(ApiService);
 
-currentPokemon: Root = this.apiService.pokeDetailWithIndex();
+initialPokemon: PokemonDetails = this.apiService.pokeDetailWithIndex();
+
+@Input()pokemon: PokemonDetails = this.initialPokemon;
 }

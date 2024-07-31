@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Root } from '../../interfaces/types';
+import { PokemonDetails } from '../../interfaces/types';
 
 @Component({
   selector: 'app-moves',
@@ -11,6 +11,6 @@ import { Root } from '../../interfaces/types';
 })
 export class MovesComponent {
   apiService = inject(ApiService);
-  currentPokemon: Root = this.apiService.pokeDetailWithIndex();
+  currentPokemon: PokemonDetails = this.apiService.pokeDetailWithIndex();
 
 }

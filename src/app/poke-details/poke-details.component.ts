@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { ZeroPadPipe } from '../pipes/zero-pad.pipe';
@@ -6,8 +13,7 @@ import { AboutComponent } from '../detailSection/about/about.component';
 import { EvoComponent } from '../detailSection/evo/evo.component';
 import { MovesComponent } from '../detailSection/moves/moves.component';
 import { StatsComponent } from '../detailSection/stats/stats.component';
-import { Root } from '../interfaces/types';
-import { EvolutionChainDetails } from '../interfaces/chain';
+import { PokemonDetails } from '../interfaces/types';
 
 @Component({
   selector: 'app-poke-details',
@@ -19,6 +25,7 @@ import { EvolutionChainDetails } from '../interfaces/chain';
     EvoComponent,
     MovesComponent,
     StatsComponent,
+    CommonModule,
   ],
   templateUrl: './poke-details.component.html',
   styleUrl: './poke-details.component.scss',
@@ -27,13 +34,17 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
   public apiService = inject(ApiService);
   @Output() showDetailView = new EventEmitter<boolean>();
 
-  currentPokemon: Root = this.apiService.pokeDetailWithIndex();
+  currentPokemon: PokemonDetails = this.apiService.pokeDetailWithIndex();
 
-  speciesUrl: string ='';
+  speciesUrl: string = '';
 
   activeSection: 'about' | 'stats' | 'evo' | 'moves' = 'about';
 
   async ngOnInit(): Promise<void> {
+    await this.refreshPokemonDetails();
+  }
+
+  async refreshPokemonDetails() {
     this.activeSection = 'about';
     this.speciesUrl = this.currentPokemon.species.url;
     this.setDataForChart();
@@ -46,19 +57,28 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     this.apiService.chartLabels = [];
   }
 
+  async nextPokemon() {
+    this.apiService.chartData = [];
+    this.apiService.chartLabels = [];
+    this.apiService.selectedIndexForDetails++;
+    this.currentPokemon = this.apiService.pokeDetailWithIndex();
+    await this.refreshPokemonDetails();
+    console.log(this.apiService.selectedIndexForDetails);
+  }
+
   /**
    * set Data for chart with current pokemon
    */
-  setDataForChart(){
+  setDataForChart() {
     this.currentPokemon.stats.forEach((stat) => {
       let name = this.capitalizeFirstLetter(stat.stat.name);
       this.apiService.chartLabels.push(name);
       this.apiService.chartData.push(stat.base_stat);
-    })
+    });
   }
 
   /**
-   * 
+   *
    * @param input string to capitalize
    * @returns capitalized string
    */
@@ -72,7 +92,7 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
 
   /**
    * set active section
-   * @param section 
+   * @param section
    */
   setActiveSection(section: 'about' | 'stats' | 'evo' | 'moves') {
     this.activeSection = section;

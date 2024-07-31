@@ -42,9 +42,10 @@ button{
   border: 2px solid $poke-blue;
   padding: 10px 20px;
   border-radius: 100vw;
+  transition: transform 125ms ease-out;
   cursor: pointer;
   &:hover{
-      background-color: rgb(252 220 117);
+    transform: scale(1.15, 1.1) translateY(5px);
   }
 }
 

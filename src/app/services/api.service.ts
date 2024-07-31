@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PokemonDetails } from '../interfaces/pokemon-details';
 import { PokemonTypes } from '../interfaces/pokemon-types';
 import { TypeColor } from '../interfaces/type-color';
-import { Root, Species } from '../interfaces/types';
-import { EvolutionChain, SpeciesDetails } from '../interfaces/species';
+import { PokemonDetails } from '../interfaces/types';
+import { SpeciesDetails } from '../interfaces/species';
 import { DisplayedChain, EvolutionChainDetails } from '../interfaces/chain';
 import { Pokemon } from '../interfaces/pokemon';
 
@@ -13,16 +12,16 @@ import { Pokemon } from '../interfaces/pokemon';
   providedIn: 'root',
 })
 export class ApiService {
-  displayedPokemon: Root[] = []; // displayed pokemon
-  searchedPokemon: Root[] = []; // cache for searched pokemon
-  allPokemon: Root[] = []; // all classic pokemon
+  displayedPokemon: PokemonDetails[] = []; // displayed pokemon
+  searchedPokemon: PokemonDetails[] = []; // cache for searched pokemon
+  allPokemon: PokemonDetails[] = []; // all classic pokemon
 
   searchInput: string = '';
 
   chartLabels: string[] = [];
   chartData: number[] = [];
 
-  detailsCache: Root[] = [] // cache for image
+  detailsCache: PokemonDetails[] = [] // cache for image
 
   isLoading: boolean = false; // loading spinner
 
@@ -78,7 +77,7 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
-  getAllDetails(url: string, arrToPush: Root[]): Promise<void> {
+  getAllDetails(url: string, arrToPush: PokemonDetails[]): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchAllDetails(url).subscribe({
         next: (all) => {
@@ -128,8 +127,8 @@ export class ApiService {
    * @param url 
    * @returns a subscribable Observable
    */
-  fetchClassicPokemon(url: string): Observable<Root> {
-    return this.http.get<Root>(url);
+  fetchClassicPokemon(url: string): Observable<PokemonDetails> {
+    return this.http.get<PokemonDetails>(url);
   }
 
   /**
@@ -137,7 +136,7 @@ export class ApiService {
    * @param url 
    * @returns a promise with pokomon details
    */
-  async getClassicPokeDetails(url: string): Promise<void> {
+  async getClassicPokeDetails(url: string): Promise<PokemonDetails | void> {
     return new Promise((resolve, reject) => {
       this.fetchClassicPokemon(url).subscribe({
         next: (pokemon) => {
@@ -184,9 +183,7 @@ export class ApiService {
     return colorObj ? colorObj.color : 'green';
   }
 
-  resetSearch() {
-    console.log('resetting search...');
-    
+  resetSearch() {    
     this.searchedPokemon = [];
     this.displayedPokemon = this.allPokemon;
   }
@@ -194,13 +191,11 @@ export class ApiService {
   
 
   filterPokemon(input: string) {
-    console.log('Filtering Pokemon with input:', input);
     this.resetSearch();
     let trimmedInput = input.trim().toLowerCase();
     let filteredPokemon = this.allPokemon.filter(pokemon => 
       this.searchPokemon(pokemon.name.toLowerCase(), trimmedInput)
     );
-    console.log('Filtered Pokemon:', filteredPokemon);
     this.displayedPokemon = filteredPokemon;
   }
 
@@ -212,9 +207,7 @@ export class ApiService {
    * @param input 
    * @returns pokemon that includes input
    */
-  searchPokemon(pokeName: string, input: string) {
-    console.log(`searching for ${input} in ${pokeName}`);
-    
+  searchPokemon(pokeName: string, input: string) {    
     return pokeName.includes(input);
   }
 
