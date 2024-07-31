@@ -1,0 +1,55 @@
+@import '../../styles.scss';
+
+.background{
+
+}
+
+main{
+    @include dFlex($fd: column, $jc: flex-start, $ai: flex-start);
+    margin-inline: auto;
+    padding: 104px 64px 16px 64px;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    max-width: $content-limit;
+    @media(max-width: 599px){
+        padding: 140px 16px 16px 16px;
+    }
+}
+
+button{
+    @media(max-width: 599px){
+        margin: 24px 0;
+    }
+}
+
+header{
+    @include dFlex($jc: space-between);
+    width: 100%;
+    @media(max-width: 599px){
+        flex-direction: column-reverse;
+    }
+}
+
+p{
+    max-width: 80ch;
+}
+
+h1{
+    color: $poke-blue;
+    font-weight: 700;
+}
+
+h2{
+    color: $poke-blue;
+    font-weight: 500;
+}
+
+a{
+    color: $poke-blue;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}

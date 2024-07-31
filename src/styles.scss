@@ -35,6 +35,19 @@ body {
   font-weight: 500;
 }
 
+button{
+  font-size: 24px;
+  font-weight: 700;
+  background-color: $poke-yellow;
+  border: 2px solid $poke-blue;
+  padding: 10px 20px;
+  border-radius: 100vw;
+  cursor: pointer;
+  &:hover{
+      background-color: rgb(252 220 117);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 16px;
 }
@@ -50,7 +63,6 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  //background: rgb(226, 226, 226);
   background: #f5f1f1;;
 }
 
