@@ -31,18 +31,31 @@ export class StatsComponent implements OnInit {
             label: '# of Votes',
             data: this.apiService.chartData,
             borderWidth: 1,
-            backgroundColor: this.CHART_BG_COLOR
+            backgroundColor: this.CHART_BG_COLOR,
+            barThickness: 15,
+            borderRadius: 7.5
           },
         ],
       },
       options: {
         scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
           y: {
             beginAtZero: true,
+            grid: {
+              display: false
+            }
           },
         },
         indexAxis: 'y',
         plugins: {
+          tooltip: {
+            enabled: false
+          },
           legend: {
             display: false
           }
