@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { PokemonDetails } from '../../interfaces/types';
 
@@ -11,6 +11,8 @@ import { PokemonDetails } from '../../interfaces/types';
 })
 export class MovesComponent {
   apiService = inject(ApiService);
-  currentPokemon: PokemonDetails = this.apiService.pokeDetailWithIndex();
+  initialPokemon: PokemonDetails = this.apiService.pokeDetailWithIndex();
+
+  @Input()pokemon: PokemonDetails = this.initialPokemon;
 
 }

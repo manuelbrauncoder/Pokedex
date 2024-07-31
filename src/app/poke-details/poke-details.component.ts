@@ -52,18 +52,47 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     await this.apiService.getEvochain(this.apiService.evoUrl);
   }
 
-  ngOnDestroy(): void {
+  clearChartData() {
     this.apiService.chartData = [];
     this.apiService.chartLabels = [];
   }
 
+  ngOnDestroy(): void {
+    this.clearChartData();
+  }
+
   async nextPokemon() {
-    this.apiService.chartData = [];
-    this.apiService.chartLabels = [];
-    this.apiService.selectedIndexForDetails++;
+    this.clearChartData();
+    this.increaseIndex();
     this.currentPokemon = this.apiService.pokeDetailWithIndex();
     await this.refreshPokemonDetails();
-    console.log(this.apiService.selectedIndexForDetails);
+  }
+
+  increaseIndex() {
+    if (
+      this.apiService.selectedIndexForDetails ===
+      this.apiService.displayedPokemon.length - 1
+    ) {
+      this.apiService.selectedIndexForDetails = 0;
+    } else {
+      this.apiService.selectedIndexForDetails++;
+    }
+  }
+
+  async previousPokemon() {
+    this.clearChartData();
+    this.decreaseIndex();
+    this.currentPokemon = this.apiService.pokeDetailWithIndex();
+    await this.refreshPokemonDetails();
+  }
+
+  decreaseIndex() {
+    if (this.apiService.selectedIndexForDetails === 0) {
+      this.apiService.selectedIndexForDetails =
+        this.apiService.displayedPokemon.length - 1;
+    } else {
+      this.apiService.selectedIndexForDetails--;
+    }
   }
 
   /**

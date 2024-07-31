@@ -1,8 +1,9 @@
 <main>
-  <div>
-    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+  <div class="btns">
+    <svg (click)="previousPokemon()" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
     <svg (click)="nextPokemon()" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
   </div>
+
 
   <div
     class="upper"
@@ -92,7 +93,7 @@
         @case (activeSection === 'about') {<app-about [pokemon]="currentPokemon" ></app-about>}
         @case (activeSection === 'stats') {<app-stats></app-stats>}
         @case (activeSection === 'evo') {<app-evo></app-evo>} 
-        @case (activeSection=== 'moves') {<app-moves></app-moves>}
+        @case (activeSection=== 'moves') {<app-moves [pokemon]="currentPokemon"></app-moves>}
         @default {<app-about></app-about>} }
     </section>
   </div>

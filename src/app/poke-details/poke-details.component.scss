@@ -1,5 +1,17 @@
 @import "../../styles.scss";
 
+.btns{
+  @include dFlex($g: 16px);
+  margin-bottom: 8px;
+  svg{
+    cursor: pointer;
+    transition: transform 125ms ease-out;
+    &:hover{
+      transform: scale(1.2);
+    }
+  }
+}
+
 main {
   @include dFlex($fd: column);
   z-index: 3;
@@ -52,7 +64,7 @@ main {
   right: 0;
   width: 100vw;
   height: 100%;
-  background-color: rgba(161, 161, 161, 0.7);
+  background-color: rgba(161, 161, 161, 0.85);
 }
 
 .headline {
