@@ -13,6 +13,17 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   public apiService = inject(ApiService);
 
+  dropdownShown: boolean = false;
+
+  toggleDropDown() {
+    this.dropdownShown = !this.dropdownShown;
+  }
+
+  changeTypeFilter(type: string){
+    this.apiService.currentTypeFilter = type;
+    this.apiService.filterByType();
+  }
+
   search(){
     this.apiService.resetSearch();
     this.apiService.filterPokemon(this.apiService.searchInput);

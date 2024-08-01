@@ -3,12 +3,12 @@
 main{
     max-width: $content-limit;
     margin-inline: auto;
-    min-height: calc(100vh - 160px + 80px);
+    min-height: calc(100vh - 160px);
     @include dFlex($fd: column, $g: 16px, $jc: flex-start);
     animation-duration: 125ms;
     padding: 96px 16px 16px 16px;
     @media(max-width: 599px){
-        padding: 170px 16px 16px 16px;
+        padding: 200px 16px 16px 16px;
       }
 }
 

@@ -1,6 +1,6 @@
 @import "../../../styles.scss";
 
-.background{
+.background {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@ header {
   margin-inline: auto;
   padding: 0 64px;
   @include dFlex($jc: space-around);
-  @media(max-width: 599px){
+  @media (max-width: 799px) {
     flex-direction: column;
     padding: 16px 0;
     gap: 16px;
@@ -26,7 +26,9 @@ header {
     height: 50px;
     width: auto;
   }
-  input{
+  input {
+    height: 32px;
+    width: 200px;
     border: unset;
     background-color: white;
     font-size: 16px;
@@ -36,20 +38,59 @@ header {
   }
 }
 
-.inputWrapper{
+.inputWrapper {
   position: relative;
-  svg{
+  svg {
     position: absolute;
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
-    columns: #757575;
+    color: $input-color;
   }
 }
 
-.selectWrapper{
+.customSelect {
+  position: relative;
   width: 200px;
-  cursor: pointer;
+  background-color: white;
+  font-size: 16px;
+  color: $input-color;
+  .activeOption {
+    width: 100%;
+    @include dFlex($g: 8px, $jc: space-between);
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .options {
+    z-index: 5;
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 0 0 16px 16px;
+    @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+
+    .option {
+      cursor: pointer;
+      width: 100%;
+      padding: 4px 8px;
+      font-size: 16px;
+      font-weight: 500;
+      &:hover {
+        background-color: rgb(209 206 206 / 30%);
+      }
+      &:last-child{
+        border-radius: 0 0 16px 16px;
+      }
+    }
+  }
 }
 
+.customSelect-open {
+  border-radius: 16px 16px 0 0;
+}
 
+.customSelect-close {
+  border-radius: 100vw;
+}
