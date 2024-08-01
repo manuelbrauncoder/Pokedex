@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PokemonTypes } from '../interfaces/pokemon-types';
 import { TypeColor } from '../interfaces/type-color';
@@ -15,6 +15,8 @@ export class ApiService {
   displayedPokemon: PokemonDetails[] = []; // displayed pokemon
   searchedPokemon: PokemonDetails[] = []; // cache for searched pokemon
   allPokemon: PokemonDetails[] = []; // all classic pokemon
+
+  availableTypesForFilter: string[] = []; // available types for the filter function
 
   searchInput: string = '';
 
@@ -63,7 +65,36 @@ export class ApiService {
   baseUrl: string = `https://pokeapi.co/api/v2/pokemon/`;
   completeListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0';
 
+  currentTypeFilter: string = 'all';
+
+  filteredByType: PokemonDetails[] = [];
+
   constructor(private http: HttpClient) {}
+
+  getTypesForFilter(){
+    this.availableTypesForFilter = [];
+
+    this.displayedPokemon.forEach(pokemon => {
+      pokemon.types.forEach(type => {
+        this.availableTypesForFilter.push(type.type.name);
+      })
+    })
+    this.availableTypesForFilter = [...new Set(this.availableTypesForFilter)];
+  }
+
+  filterByType() {
+    this.resetSearch();
+    if (this.currentTypeFilter.trim().toLowerCase() === 'all') {
+      this.displayedPokemon = this.allPokemon;
+    } else {
+      this.filteredByType = this.allPokemon.filter(pokemon => this.aplyFilter(pokemon, this.currentTypeFilter));
+      this.displayedPokemon = this.filteredByType;
+    }
+  }
+  
+  aplyFilter(pokemon: PokemonDetails, typeFilter: string): boolean {
+    return pokemon.types.some(type => type.type.name.trim().toLowerCase() === typeFilter.trim().toLowerCase());
+  }
 
   async loadMore(){
     this.classicLimit += 25;
@@ -71,6 +102,7 @@ export class ApiService {
     await this.prepareUrlToFetch();
     this.displayedPokemon = this.allPokemon;
     this.isLoading = false;
+    this.getTypesForFilter();
   }
 
   fetchAllDetails(url: string): Observable<any> {
@@ -188,8 +220,6 @@ export class ApiService {
     this.displayedPokemon = this.allPokemon;
   }
 
-  
-
   filterPokemon(input: string) {
     this.resetSearch();
     let trimmedInput = input.trim().toLowerCase();
@@ -198,8 +228,6 @@ export class ApiService {
     );
     this.displayedPokemon = filteredPokemon;
   }
-
-
 
   /**
    * 
