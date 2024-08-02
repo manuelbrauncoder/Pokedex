@@ -1,0 +1,17 @@
+@import '../../styles.scss';
+
+main{
+    padding: 16px;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient($poke-yellow, $poke-blue);
+    @include dFlex($fd: column, $g: 16px);
+    h2{
+        color: $poke-blue;
+        font-size: 24px;
+        font-weight: 900;
+    }
+    svg{
+        fill: $poke-blue;
+    }
+}

@@ -14,7 +14,7 @@ import { Pokemon } from '../interfaces/pokemon';
 export class ApiService {
   displayedPokemon: PokemonDetails[] = []; // displayed pokemon
   searchedPokemon: PokemonDetails[] = []; // cache for searched pokemon
-  allPokemon: PokemonDetails[] = []; // all classic pokemon
+  allPokemon: PokemonDetails[] = []; // all details from loaded pokemon
 
   availableTypesForFilter: string[] = []; // available types for the filter function
 
@@ -31,8 +31,6 @@ export class ApiService {
 
   evoUrl: string = '';
   currentEvoChain: EvolutionChainDetails[] = [];
-
-
   chain: DisplayedChain[] = [];
 
   completePokeList: Pokemon[] = [];
@@ -60,7 +58,7 @@ export class ApiService {
   ];
 
   pokeOffset: number = 1;
-  classicLimit: number = 25;
+  limit: number = 25;
 
   baseUrl: string = `https://pokeapi.co/api/v2/pokemon/`;
   completeListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0';
@@ -112,7 +110,7 @@ export class ApiService {
    * load more pokemon
    */
   async loadMore(){
-    this.classicLimit += 25;
+    this.limit += 25;
     this.isLoading = true;
     await this.prepareUrlToFetch();
     this.displayedPokemon = this.allPokemon;
@@ -172,7 +170,7 @@ export class ApiService {
    * prepare url for pokemon details
    */
   async prepareUrlToFetch() {
-    while (this.pokeOffset <= this.classicLimit) {
+    while (this.pokeOffset <= this.limit) {
       const url = `${this.baseUrl}${this.pokeOffset}/`;
       await this.getClassicPokeDetails(url);
       this.pokeOffset++;

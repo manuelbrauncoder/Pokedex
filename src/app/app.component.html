@@ -1,7 +1,9 @@
-
-
+@if(isHandsetLandscape){
+<app-no-landscape></app-no-landscape>
+}@else if (!isHandsetLandscape) {
 <app-header></app-header>
 
 <router-outlet />
 
 <app-footer></app-footer>
+}
