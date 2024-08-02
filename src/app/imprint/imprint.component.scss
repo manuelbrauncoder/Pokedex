@@ -12,7 +12,7 @@ main{
     min-height: calc(100vh - 80px);
     max-width: $content-limit;
     @media(max-width: 599px){
-        padding: 140px 16px 16px 16px;
+        padding: 180px 16px 16px 16px;
     }
 }
 
@@ -37,6 +37,7 @@ p{
 h1{
     color: $poke-blue;
     font-weight: 700;
+    margin-bottom: 16px;
 }
 
 h2{
