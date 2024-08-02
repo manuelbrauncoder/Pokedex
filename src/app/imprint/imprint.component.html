@@ -1,6 +1,6 @@
-<div class="background">
+
   
-    <main>
+    <main [ngStyle]="{'padding-top': observerService.showMenu ? '180px' : '110px'}">
         <header>
             <h1>Imprint</h1>
             <button (click)="goBack()">Back</button>
@@ -25,4 +25,4 @@
         <p>The use of our website is generally possible without providing personal data. If personal data (e.g. name, address or e-mail addresses) is collected on our website, this is always done on a voluntary basis as far as possible. This data will not be passed on to third parties without your express consent. We would like to point out that data transmission over the Internet (e.g. when communicating by e-mail) may be subject to security vulnerabilities. Complete protection of data against access by third parties is not possible. We hereby expressly prohibit the use of contact data published within the scope of the imprint obligation by third parties for sending unsolicited advertising and information material. The operators of the website expressly reserve the right to take legal action in the event of the unsolicited sending of advertising information, such as spam emails.</p>
     </main>
         
-</div>
+

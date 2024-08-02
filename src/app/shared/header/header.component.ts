@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -21,9 +22,9 @@ export class HeaderComponent implements OnInit {
   public apiService = inject(ApiService);
   public observerService = inject(BreakpointObserverService);
   private elementRef = inject(ElementRef);
+  public router = inject(Router);
 
   dropdownShown: boolean = false;
-  
 
   ngOnInit(): void {
     this.observerService.observeTablet();
@@ -32,9 +33,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
-    if (
-      !this.observerService.menuIsShown()
-    ) {
+    if (!this.observerService.menuIsShown()) {
       return;
     } else {
       const insideDropdown = this.elementRef.nativeElement
@@ -55,15 +54,25 @@ export class HeaderComponent implements OnInit {
   }
 
   changeTypeFilter(type: string) {
-    this.apiService.currentTypeFilter = type;
-    this.apiService.filterByType();
+    this.checkRoute();
+    setTimeout(() => {
+      this.apiService.currentTypeFilter = type;
+      this.apiService.filterByType();
+    }, 50);
   }
 
   search() {
-    this.apiService.currentTypeFilter = 'all';
-    this.apiService.resetSearch();
-    this.apiService.filterPokemon(this.apiService.searchInput);
+    this.checkRoute();
+    setTimeout(() => {
+      this.apiService.currentTypeFilter = 'all';
+      this.apiService.resetSearch();
+      this.apiService.filterPokemon(this.apiService.searchInput);
+    }, 50);
   }
 
-  
+  checkRoute() {
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']);
+    }
+  }
 }

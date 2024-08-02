@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { BreakpointObserverService } from '../services/breakpoint-observer.service';
 
 @Component({
   selector: 'app-imprint',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class ImprintComponent {
 
   private router = inject(Router);
+  public observerService = inject(BreakpointObserverService);
 
   goBack(){
     this.router.navigate(['/']);

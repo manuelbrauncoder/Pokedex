@@ -1,9 +1,5 @@
 @import '../../styles.scss';
 
-.background{
-
-}
-
 main{
     @include dFlex($fd: column, $jc: flex-start, $ai: flex-start);
     margin-inline: auto;
