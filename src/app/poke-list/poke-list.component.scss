@@ -1,60 +1,63 @@
-@import '../../styles.scss';
+@import "../../styles.scss";
 
-main{
-    max-width: $content-limit;
-    margin-inline: auto;
-    min-height: calc(100vh - 160px);
-    @include dFlex($fd: column, $g: 16px, $jc: flex-start);
-    animation-duration: 125ms;
-    padding: 96px 16px 16px 16px;
-    @media(max-width: 599px){
-        padding: 200px 16px 16px 16px;
-      }
+main {
+  max-width: $content-limit;
+  margin-inline: auto;
+  min-height: calc(100vh - 160px);
+  @include dFlex($fd: column, $g: 16px, $jc: flex-start);
+  animation-duration: 125ms;
+  padding: 96px 16px 16px 16px;
+  @media (max-width: 799px) {
+    padding: 200px 16px 16px 16px;
+  }
 }
 
-.pokeList{
-    @include dFlex($g: 16px);
-    flex-wrap: wrap;
+h3 {
+  @extend .spanBubble;
 }
 
-.pokeCard{
-    width: 280px;
-    border-radius: 16px;
-    padding: 8px;
-    cursor: pointer;
-    border: 2px solid $poke-blue;
-    &:hover img{
-        scale: 1.3;
-        transition-duration: 125ms;
-    } 
+.pokeList {
+  @include dFlex($g: 16px);
+  flex-wrap: wrap;
 }
 
-.headline{
-    @include dFlex($g: 16px, $jc: space-around);
-    h2{
-        font-size: 24px;
-        font-weight: 900;
-    }
-    span{
-        @extend .spanBubble;
-    }
+.pokeCard {
+  width: 280px;
+  border-radius: 16px;
+  padding: 8px;
+  cursor: pointer;
+  border: 2px solid $poke-blue;
+  &:hover img {
+    scale: 1.3;
+    transition-duration: 125ms;
+  }
 }
 
-.details{
-    @include dFlex($jc: space-around);
-    img{
-        width: 130px;
-        height: auto;
-        transition-duration: 125ms;
-    }
+.headline {
+  @include dFlex($g: 16px, $jc: space-around);
+  h2 {
+    font-size: 24px;
+    font-weight: 900;
+  }
+  span {
+    @extend .spanBubble;
+  }
 }
 
-.types{
-    @include dFlex($fd: column, $ai: flex-start, $g: 8px);
-    span{
-        background-color: rgba(255, 255, 255, 0.3);
-        padding: 4px 8px;
-        border-radius: 100vw;
-    }
+.details {
+  @include dFlex($jc: space-around);
+  img {
+    width: 130px;
+    height: auto;
+    transition-duration: 125ms;
+  }
 }
 
+.types {
+  @include dFlex($fd: column, $ai: flex-start, $g: 8px);
+  span {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 4px 8px;
+    border-radius: 100vw;
+  }
+}

@@ -25,6 +25,7 @@ export class HeaderComponent {
   }
 
   search(){
+    this.apiService.currentTypeFilter = 'all';
     this.apiService.resetSearch();
     this.apiService.filterPokemon(this.apiService.searchInput);
   }

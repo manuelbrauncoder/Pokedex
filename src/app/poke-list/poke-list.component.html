@@ -1,4 +1,5 @@
 <main>
+  <h3>Loaded: {{apiService.allPokemon.length}} / {{apiService.completePokeList.length}}</h3>
   @if (apiService.displayedPokemon.length < apiService.allPokemon.length) {
     <button (click)="goBack()">Back</button>
   }

@@ -28,6 +28,7 @@
       </div>
       @if (dropdownShown) {
       <div class="options">
+        <span (click)="changeTypeFilter('all')" class="option">All</span>
         @for (option of apiService.availableTypesForFilter; track $index) {
         <span (click)="changeTypeFilter(option)" class="option">{{ option | titlecase }}</span>
         }
