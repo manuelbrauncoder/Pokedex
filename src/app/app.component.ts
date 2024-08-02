@@ -3,8 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { MaincontentComponent } from './maincontent/maincontent.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NoLandscapeComponent } from './no-landscape/no-landscape.component';
+import { BreakpointObserverService } from './services/breakpoint-observer.service';
 
 @Component({
   selector: 'app-root',
@@ -15,20 +15,13 @@ import { NoLandscapeComponent } from './no-landscape/no-landscape.component';
 })
 export class AppComponent implements OnInit{
   title = 'pokedex';
-  responsive = inject(BreakpointObserver);
-  isHandsetLandscape: boolean = false;
+  observerService = inject(BreakpointObserverService);
+
+  
   constructor() {}
 
 ngOnInit(): void {
-  this.responsive.observe(Breakpoints.HandsetLandscape).subscribe(result => {
-    if (result.matches) {
-      console.log('mobile landscape');
-      this.isHandsetLandscape = true;
-    } else if (!result.matches) {
-      console.log('no landscape');
-      this.isHandsetLandscape = false;
-    }
-  })
+  this.observerService.observeHandsetLandscape();
 }
 
  

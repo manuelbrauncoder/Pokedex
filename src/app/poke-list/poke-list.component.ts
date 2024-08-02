@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { PokeDetailsComponent } from '../poke-details/poke-details.component';
 import { ZeroPadPipe } from '../pipes/zero-pad.pipe';
 import { FormsModule } from '@angular/forms';
+import { BreakpointObserverService } from '../services/breakpoint-observer.service';
 
 @Component({
   selector: 'app-poke-list',
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PokeListComponent implements OnInit {
   public apiService = inject(ApiService);
+  public observerService = inject(BreakpointObserverService);
 
   detailboxShown: boolean = false;
 

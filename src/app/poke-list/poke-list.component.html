@@ -1,4 +1,4 @@
-<main>
+<main [ngStyle]="{'padding-top': observerService.showMenu ? '180px' : '110px'}">
   <h3>Loaded: {{apiService.allPokemon.length}} / {{apiService.completePokeList.length}}</h3>
   @if (apiService.displayedPokemon.length < apiService.allPokemon.length) {
     <button (click)="goBack()">Back</button>

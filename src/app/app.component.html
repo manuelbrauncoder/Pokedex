@@ -1,6 +1,6 @@
-@if(isHandsetLandscape){
+@if(observerService.isHandsetLandscape){
 <app-no-landscape></app-no-landscape>
-}@else if (!isHandsetLandscape) {
+}@else if (!observerService.isHandsetLandscape) {
 <app-header></app-header>
 
 <router-outlet />

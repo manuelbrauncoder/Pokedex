@@ -18,9 +18,8 @@ header {
   padding: 0 64px;
   @include dFlex($jc: space-around);
   @media (max-width: 799px) {
-    flex-direction: column;
     padding: 16px 0;
-    gap: 16px;
+    flex-direction: column;
   }
   img {
     height: 50px;
@@ -36,6 +35,10 @@ header {
     padding: 4px 8px;
     outline: none;
   }
+}
+
+.block{
+  display: block !important;
 }
 
 .inputWrapper {
@@ -95,4 +98,63 @@ header {
 
 .customSelect-close {
   border-radius: 100vw;
+}
+
+.burgerMenu {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  .line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    border-radius: 100vw;
+    background-color: $poke-yellow;
+    border: 2px solid $poke-blue;
+    transition: transform 175ms ease, top 175ms ease;
+  }
+
+  .top {
+    top: 25%;
+  }
+
+  .middle {
+    top: 50%;
+  }
+
+  .bottom {
+    top: 75%;
+  }
+}
+
+.burgerMenuClosed .top {
+  top: 50%;
+  transform: rotate(-45deg);
+}
+
+.burgerMenuClosed .middle {
+  width: 0;
+  border: unset;
+}
+
+.burgerMenuClosed .bottom {
+  top: 50%;
+  transform: rotate(45deg);
+}
+
+.logoAndBurger {
+  @media(max-width: 899px){
+    width: 100%;
+    @include dFlex($jc: space-around);
+  }
+}
+
+.menu{
+  @include dFlex($g: 32px);
+  @media(max-width: 839px){
+    flex-direction: column;
+    gap: 8px;
+  }
 }
