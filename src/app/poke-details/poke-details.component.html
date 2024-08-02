@@ -1,7 +1,7 @@
-<main>
+<main [ngClass]="!startAnimation ? 'show' : 'hide'">
   <div class="btns">
-    <svg (click)="previousPokemon()" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
-    <svg (click)="nextPokemon()" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+    <svg (click)="previousPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+    <svg (click)="nextPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
   </div>
 
 
