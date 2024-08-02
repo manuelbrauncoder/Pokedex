@@ -18,7 +18,7 @@
         <h3>{{ currentPokemon.name | titlecase }}</h3>
         <span>#{{ currentPokemon.id | zeroPad : 4 }}</span>
       </div>
-      <svg class="closeBtn" (click)="toggleDetailView()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+      <svg class="closeBtn" (click)="closeDetailView()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
     </div>
 
     <div class="imgAndTypes">
@@ -100,4 +100,4 @@
 </main>
 
 
-<div (click)="toggleDetailView()" class="background"></div>
+<div (click)="closeDetailView()" class="background"></div>

@@ -1,8 +1,6 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
-  HostListener,
   inject,
   OnDestroy,
   OnInit,
@@ -34,7 +32,6 @@ import { PokemonDetails } from '../interfaces/types';
 })
 export class PokeDetailsComponent implements OnInit, OnDestroy {
   public apiService = inject(ApiService);
-  private elementRef = inject(ElementRef);
   @Output() showDetailView = new EventEmitter<boolean>();
   startAnimation: boolean = false;
 
@@ -46,13 +43,6 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     await this.refreshPokemonDetails();
-  }
-
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: MouseEvent) {
-    if (this.elementRef.nativeElement.contains(event.target)) {
-      this.toggleDetailView();      
-    }
   }
 
   async refreshPokemonDetails() {
@@ -143,7 +133,7 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
   /**
    * toggle detail view
    */
-  toggleDetailView() {
+  closeDetailView() {
     this.startAnimation = true;
     setTimeout(() => {
       this.showDetailView.emit(false);

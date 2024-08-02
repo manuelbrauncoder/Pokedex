@@ -71,9 +71,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * get available types for loaded pokemon
+   * remove duplicates with Set
+   */
   getTypesForFilter(){
     this.availableTypesForFilter = [];
-
     this.displayedPokemon.forEach(pokemon => {
       pokemon.types.forEach(type => {
         this.availableTypesForFilter.push(type.type.name);
@@ -82,6 +85,9 @@ export class ApiService {
     this.availableTypesForFilter = [...new Set(this.availableTypesForFilter)];
   }
 
+  /**
+   * filter displayed pokemon by type
+   */
   filterByType() {
     this.resetSearch();
     if (this.currentTypeFilter.trim().toLowerCase() === 'all') {
@@ -92,10 +98,19 @@ export class ApiService {
     }
   }
   
+  /**
+   * 
+   * @param pokemon 
+   * @param typeFilter 
+   * @returns true if the pokemon has the filter type
+   */
   aplyFilter(pokemon: PokemonDetails, typeFilter: string): boolean {
     return pokemon.types.some(type => type.type.name.trim().toLowerCase() === typeFilter.trim().toLowerCase());
   }
 
+  /**
+   * load more pokemon
+   */
   async loadMore(){
     this.classicLimit += 25;
     this.isLoading = true;
@@ -109,6 +124,12 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
+  /**
+   * push pokemon details to array
+   * @param url 
+   * @param arrToPush 
+   * @returns 
+   */
   getAllDetails(url: string, arrToPush: PokemonDetails[]): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchAllDetails(url).subscribe({
@@ -128,6 +149,10 @@ export class ApiService {
     return this.http.get<any>(url);
   }
 
+  /**
+   * download pokemon list, with name and url
+   * @returns 
+   */
   getCompleteList(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchCompleteList(this.completeListUrl).subscribe({
@@ -144,7 +169,7 @@ export class ApiService {
   }
 
   /**
-   * prepare url for classic pokemon
+   * prepare url for pokemon details
    */
   async prepareUrlToFetch() {
     while (this.pokeOffset <= this.classicLimit) {
@@ -215,11 +240,18 @@ export class ApiService {
     return colorObj ? colorObj.color : 'green';
   }
 
+  /**
+   * clear searched pokemon array, show all pokemon
+   */
   resetSearch() {    
     this.searchedPokemon = [];
     this.displayedPokemon = this.allPokemon;
   }
 
+  /**
+   * change all pokemon to searched pokemon
+   * @param input 
+   */
   filterPokemon(input: string) {
     this.resetSearch();
     let trimmedInput = input.trim().toLowerCase();
@@ -247,6 +279,11 @@ export class ApiService {
     return this.http.get<EvolutionChainDetails>(url);
   }
 
+  /**
+   * Evolution Chain Details
+   * @param url 
+   * @returns 
+   */
   async getEvochain(url: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchEvoChain(url).subscribe({
@@ -262,6 +299,11 @@ export class ApiService {
     });
   }
 
+  /**
+   * save the current evolution chain
+   * handle different chain numbers
+   * @param res 
+   */
   async cacheChainDetails(res: EvolutionChainDetails) {
     this.imgUrl = '';
     this.chain = [];
@@ -288,6 +330,17 @@ export class ApiService {
     }
   }
 
+ async handleEvolutionChainObject(name: string, url: string){
+    let imgUrl = await this.getImageForChain(name);
+    let obj = this.getChainObject(name, imgUrl);
+    this.chain.push(obj);
+  }
+
+  /**
+   * safe image url for current evolution chain
+   * @param name 
+   * @returns 
+   */
   async getImageForChain(name: string): Promise<string> {
     this.detailsCache = [];
     let imgUrl: string = '';    
@@ -315,6 +368,11 @@ export class ApiService {
     };
   }
 
+  /**
+   * safe url for current evolution chain
+   * @param url 
+   * @returns 
+   */
   async getSpecies(url: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.fetchSpecies(url).subscribe({
