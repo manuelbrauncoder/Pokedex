@@ -17,7 +17,7 @@ header {
   margin-inline: auto;
   padding: 0 64px;
   @include dFlex($jc: space-around);
-  @media (max-width: 799px) {
+  @media (max-width: 839px) {
     padding: 16px 0;
     flex-direction: column;
   }
@@ -145,7 +145,7 @@ header {
 }
 
 .logoAndBurger {
-  @media(max-width: 899px){
+  @media(max-width: 839px){
     width: 100%;
     @include dFlex($jc: space-around);
   }
