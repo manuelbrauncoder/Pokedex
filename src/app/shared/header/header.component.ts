@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit {
    */
   changeTypeFilter(type: string) {
     this.checkRoute();
+    this.apiService.searchInput = '';
     setTimeout(() => {
       this.apiService.currentTypeFilter = type;
       this.apiService.filterByType();
