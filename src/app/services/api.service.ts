@@ -328,12 +328,6 @@ export class ApiService {
     }
   }
 
- async handleEvolutionChainObject(name: string, url: string){
-    let imgUrl = await this.getImageForChain(name);
-    let obj = this.getChainObject(name, imgUrl);
-    this.chain.push(obj);
-  }
-
   /**
    * safe image url for current evolution chain
    * @param name 

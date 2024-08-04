@@ -20,16 +20,27 @@ export class PokeListComponent implements OnInit {
 
   detailboxShown: boolean = false;
 
+  /**
+   * reset filter and clear input, show all pokemon
+   */
   goBack(){
     this.apiService.displayedPokemon = this.apiService.allPokemon;
     this.apiService.searchInput = '';
     this.apiService.currentTypeFilter = 'all';
   }
 
+  /**
+   * change if detail box is visible or not
+   * @param state 
+   */
   changeDetailViewState(state: boolean){
     this.detailboxShown = state;
   }
 
+  /**
+   * toggle detailbox
+   * @param index 
+   */
   showDetailBox(index: number) {
     this.detailboxShown = !this.detailboxShown;
     this.apiService.selectedIndexForDetails = index;

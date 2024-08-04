@@ -15,6 +15,9 @@ export class BreakpointObserverService {
 
   constructor() { }
 
+  /**
+   * observe Handset Landscape Mode and change boolean to true
+   */
   observeHandsetLandscape(){
     this.responsive.observe(Breakpoints.HandsetLandscape).subscribe(result => {
       if (result.matches) {
@@ -22,37 +25,37 @@ export class BreakpointObserverService {
       } else if (!result.matches) {
         this.isHandsetLandscape = false;
       }
-    })
+    });
   }
-
+/**
+   * observe Tablet Portrait Mode and change boolean to true
+   */
   observeTablet(){
     this.responsive.observe(Breakpoints.TabletPortrait).subscribe(result => {
       if (result.matches) {
         this.isTabletPortrait = true;
-        console.log('Tablet Portrai');
-        
       } else if (!result.matches) {
         this.isTabletPortrait = false;
-        console.log('not Tablet Portrait');
-        
       }
-    })
+    });
   }
-
+/**
+   * observe Handset Portrait Mode and change boolean to true
+   */
   observeHandsetPortrait(){
     this.responsive.observe(Breakpoints.HandsetPortrait).subscribe(result => {
       if (result.matches) {
         this.isHandsetPortrait = true;
-        console.log('Handset Portrait');
-        
       } else if (!result.matches) {
-        this.isHandsetPortrait = false;
-        console.log('not Handset Portrait');
-        
+        this.isHandsetPortrait = false;        
       }
-    })
+    });
   }
 
+  /**
+   * 
+   * @returns the state of the menu
+   */
   menuIsShown(): boolean {
     if (this.showMenu) {
       return true;

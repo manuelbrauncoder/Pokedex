@@ -45,6 +45,9 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     await this.refreshPokemonDetails();
   }
 
+  /**
+   * get Details for new pokemon
+   */
   async refreshPokemonDetails() {
     this.activeSection = 'about';
     this.speciesUrl = this.currentPokemon.species.url;
@@ -53,6 +56,9 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     await this.apiService.getEvochain(this.apiService.evoUrl);
   }
 
+  /**
+   * clear chart data for chart.js
+   */
   clearChartData() {
     this.apiService.chartData = [];
     this.apiService.chartLabels = [];
@@ -62,6 +68,10 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     this.clearChartData();
   }
 
+  /**
+   * show next pokemon in list
+   * @param event 
+   */
   async nextPokemon(event: MouseEvent) {
     event.stopPropagation();
     this.clearChartData();
@@ -70,6 +80,9 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     await this.refreshPokemonDetails();
   }
 
+  /**
+   * increase pokemon index / handle if max index is reached
+   */
   increaseIndex() {
     if (
       this.apiService.selectedIndexForDetails ===
@@ -81,6 +94,10 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * show previous Pokemon in list
+   * @param event 
+   */
   async previousPokemon(event: MouseEvent) {
     event.stopPropagation();
     this.clearChartData();
@@ -89,6 +106,9 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
     await this.refreshPokemonDetails();
   }
 
+  /**
+   * decrease pokemon index / handle if is index is 0
+   */
   decreaseIndex() {
     if (this.apiService.selectedIndexForDetails === 0) {
       this.apiService.selectedIndexForDetails =
@@ -131,7 +151,7 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * toggle detail view
+   * close detail view
    */
   closeDetailView() {
     this.startAnimation = true;

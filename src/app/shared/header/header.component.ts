@@ -31,6 +31,11 @@ export class HeaderComponent implements OnInit {
     this.observerService.observeHandsetPortrait();
   }
 
+  /**
+   * close dropdown menu, when clicking outside
+   * @param event 
+   * @returns 
+   */
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
     if (!this.observerService.menuIsShown()) {
@@ -45,14 +50,24 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * toggle dropdown menu
+   */
   toggleDropDown() {
     this.dropdownShown = !this.dropdownShown;
   }
 
+  /**
+   * toggle menu
+   */
   toggleMenu() {
     this.observerService.showMenu = !this.observerService.showMenu;
   }
 
+  /**
+   * change pokemon type filter
+   * @param type 
+   */
   changeTypeFilter(type: string) {
     this.checkRoute();
     setTimeout(() => {
@@ -61,6 +76,9 @@ export class HeaderComponent implements OnInit {
     }, 50);
   }
 
+  /**
+   * calling on input, search pokemon
+   */
   search() {
     this.checkRoute();
     setTimeout(() => {
@@ -70,6 +88,9 @@ export class HeaderComponent implements OnInit {
     }, 50);
   }
 
+  /**
+   * back to root if not on root route
+   */
   checkRoute() {
     if (this.router.url !== '/') {
       this.router.navigate(['/']);

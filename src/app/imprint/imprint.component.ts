@@ -15,6 +15,9 @@ export class ImprintComponent {
   private router = inject(Router);
   public observerService = inject(BreakpointObserverService);
 
+  /**
+   * back to root, scroll to top after timeout
+   */
   goBack(){
     this.router.navigate(['/']);
     setTimeout(() => {
