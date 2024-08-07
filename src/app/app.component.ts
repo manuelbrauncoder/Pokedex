@@ -9,20 +9,23 @@ import { BreakpointObserverService } from './services/breakpoint-observer.servic
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MaincontentComponent, FooterComponent, HeaderComponent, NoLandscapeComponent],
+  imports: [
+    RouterOutlet,
+    MaincontentComponent,
+    FooterComponent,
+    HeaderComponent,
+    NoLandscapeComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'pokedex';
   observerService = inject(BreakpointObserverService);
 
-  
   constructor() {}
 
-ngOnInit(): void {
-  this.observerService.observeHandsetLandscape();
-}
-
- 
+  ngOnInit(): void {
+    this.observerService.observeHandsetLandscape();
+  }
 }

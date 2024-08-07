@@ -1,55 +1,78 @@
 @import "../../styles.scss";
 
-.btns{
+.mobile-btns {
   @include dFlex($g: 16px);
-  margin-bottom: 8px;
-  svg{
+  margin-top: 16px;
+  svg {
     cursor: pointer;
     transition: transform 125ms ease-out;
-    &:hover{
+    &:hover {
       transform: scale(1.2);
     }
   }
 }
 
+.arrow-left {
+  margin-right: -13px;
+}
+
+.arrow{
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  transition: transform 125ms ease-out;
+    &:hover {
+      transform: scale(1.2);
+    }
+}
+
 main {
-  @include dFlex($fd: column);
   z-index: 3;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 700px;
-  width: 500px;
-  @media(max-width: 599px) {
+  @include dFlex($g: 32px);
+  @media (max-width: 839px) {
+    flex-direction: column;
+  }
+  @media (max-width: 599px) {
     width: 90%;
     height: 90%;
   }
 }
 
-.hide{
+.detail-box {
+  height: 700px;
+  width: 500px;
+  @media (max-width: 599px) {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.hide {
   animation: hideDetailBox ease-in-out 200ms forwards;
 }
 
-.show{
+.show {
   animation: showDetailBox ease-in-out 200ms forwards;
-
 }
 
-@keyframes showDetailBox{
-  from{
+@keyframes showDetailBox {
+  from {
     transform: translate(-50%, 200%);
   }
-  to{
+  to {
     transform: translate(-50%, -50%);
   }
 }
 
-@keyframes hideDetailBox{
-  from{
+@keyframes hideDetailBox {
+  from {
     transform: translate(-50%, -50%);
   }
-  to{
+  to {
     transform: translate(-50%, 200%);
   }
 }
@@ -74,12 +97,12 @@ main {
     h3 {
       font-size: 20px;
       cursor: pointer;
-      @media(max-width: 599px) {
+      @media (max-width: 599px) {
         font-size: 16px;
       }
     }
   }
-  section{
+  section {
     height: 80%;
   }
 }
@@ -101,7 +124,7 @@ main {
   .closeBtn {
     cursor: pointer;
     transition: transform ease-in 100ms;
-    &:hover{
+    &:hover {
       transform: scale(1.4);
       transition: transform ease-in 100ms;
     }
@@ -112,11 +135,11 @@ main {
       font-size: 32px;
       font-weight: 900;
     }
-    span{
+    span {
       @extend .spanBubble;
       font-size: 20px;
       font-weight: 500;
-      @media(max-width: 599px) {
+      @media (max-width: 599px) {
         display: none;
       }
     }
@@ -126,7 +149,7 @@ main {
 .imgAndTypes {
   margin-bottom: auto;
   @include dFlex($jc: space-evenly);
-  @media(max-width: 599px) {
+  @media (max-width: 599px) {
     flex-direction: column;
   }
 }
@@ -136,20 +159,20 @@ main {
   span {
     @extend .spanBubble;
   }
-  @media(max-width: 599px) {
-      flex-direction: row;
+  @media (max-width: 599px) {
+    flex-direction: row;
   }
 }
 
 .pokeImg {
   width: 250px;
   height: auto;
-  @media(max-width: 599px) {
+  @media (max-width: 599px) {
     width: 200px;
   }
 }
 
-.active{
+.active {
   padding: 4px 8px;
   border-radius: 100vw;
 }

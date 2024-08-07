@@ -14,6 +14,7 @@ import { EvoComponent } from '../detailSection/evo/evo.component';
 import { MovesComponent } from '../detailSection/moves/moves.component';
 import { StatsComponent } from '../detailSection/stats/stats.component';
 import { PokemonDetails } from '../interfaces/types';
+import { BreakpointObserverService } from '../services/breakpoint-observer.service';
 
 @Component({
   selector: 'app-poke-details',
@@ -31,6 +32,7 @@ import { PokemonDetails } from '../interfaces/types';
   styleUrl: './poke-details.component.scss',
 })
 export class PokeDetailsComponent implements OnInit, OnDestroy {
+  observerService = inject(BreakpointObserverService);
   public apiService = inject(ApiService);
   @Output() showDetailView = new EventEmitter<boolean>();
   startAnimation: boolean = false;
@@ -42,7 +44,17 @@ export class PokeDetailsComponent implements OnInit, OnDestroy {
   activeSection: 'about' | 'stats' | 'evo' | 'moves' = 'about';
 
   async ngOnInit(): Promise<void> {
+    this.observerService.observeHandsetPortrait();
+    this.observerService.observeTablet();
     await this.refreshPokemonDetails();
+  }
+
+  isMobile(){
+    if ((this.observerService.isHandsetPortrait || this.observerService.isTabletPortrait)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**

@@ -1,11 +1,12 @@
 <main [ngClass]="!startAnimation ? 'show' : 'hide'">
-  <div class="btns">
-    <svg (click)="previousPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
-    <svg (click)="nextPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
-  </div>
+
+  @if (!isMobile()) {
+    <svg class="arrow-left arrow" (click)="previousPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+  }
 
 
-  <div
+  <div class="detail-box">
+    <div
     class="upper"
     [ngStyle]="{
       'background-color': apiService.getBgColor(
@@ -97,6 +98,20 @@
         @default {<app-about></app-about>} }
     </section>
   </div>
+  </div>
+
+  @if (!isMobile()) {
+    <svg class="arrow" (click)="nextPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+  }
+
+  
+  @if(isMobile()){
+    <div class="mobile-btns">
+      <svg (click)="previousPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="black"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+      <svg (click)="nextPokemon($event)" xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill=""><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+    </div>
+  }
+  
 </main>
 
 
